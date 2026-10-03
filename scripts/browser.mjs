@@ -1,0 +1,2 @@
+import {chromium} from 'playwright';import fs from 'node:fs';
+export async function launchBrowser(){const executablePath=process.env.CHROME_BIN||(fs.existsSync('/home/dev/.local/bin/chromium')?'/home/dev/.local/bin/chromium':undefined);return chromium.launch({headless:true,...(executablePath?{executablePath}:{}),args:['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader','--disable-dev-shm-usage']});}

@@ -4,31 +4,91 @@
       "width": 1440,
       "height": 1000
     },
+    "mobileEmulation": false,
     "overflow": false,
-    "bounds": {
-      "width": 897,
-      "height": 870
-    },
-    "view": "three",
-    "clay": "clay",
-    "wire": "wire",
+    "readyMilliseconds": 7389,
+    "views": [
+      "front",
+      "three",
+      "side",
+      "back",
+      "face",
+      "outfit",
+      "hands",
+      "shoes"
+    ],
+    "materialModes": [
+      "clay",
+      "wire",
+      "textured"
+    ],
     "reset": true,
-    "errors": []
+    "orbitChanged": true,
+    "downloadVerified": true,
+    "snapshotVerified": true,
+    "errors": [],
+    "stats": {
+      "triangles": 565007,
+      "drawCalls": 33,
+      "modelSource": "prebuilt",
+      "modelLoadMilliseconds": 299.19999999925494,
+      "geometries": 36,
+      "textures": 9,
+      "mode": "textured",
+      "activeView": "front",
+      "render": {
+        "frame": 65,
+        "calls": 35,
+        "triangles": 565011,
+        "points": 0,
+        "lines": 0
+      }
+    }
   },
   {
     "size": {
       "width": 390,
       "height": 844
     },
+    "mobileEmulation": true,
     "overflow": false,
-    "bounds": {
-      "width": 390,
-      "height": 485
-    },
-    "view": "three",
-    "clay": "clay",
-    "wire": "wire",
+    "readyMilliseconds": 8085,
+    "views": [
+      "front",
+      "three",
+      "side",
+      "back",
+      "face",
+      "outfit",
+      "hands",
+      "shoes"
+    ],
+    "materialModes": [
+      "clay",
+      "wire",
+      "textured"
+    ],
     "reset": true,
-    "errors": []
+    "orbitChanged": true,
+    "downloadVerified": null,
+    "snapshotVerified": null,
+    "errors": [],
+    "stats": {
+      "triangles": 565007,
+      "drawCalls": 33,
+      "modelSource": "prebuilt",
+      "modelLoadMilliseconds": 307.5,
+      "geometries": 36,
+      "textures": 9,
+      "mode": "textured",
+      "activeView": "front",
+      "render": {
+        "frame": 56,
+        "calls": 35,
+        "triangles": 565011,
+        "points": 0,
+        "lines": 0
+      }
+    }
   }
 ]

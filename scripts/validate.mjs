@@ -1,0 +1,3 @@
+import fs from 'node:fs';import path from 'node:path';import validator from 'gltf-validator';
+const results=[];for(const name of ['gpt6_astra_pro_colabdev_web_rgirljk.glb','gpt6_astra_pro_colabdev_web_rgirljk_web.glb']){const file=path.join('public/exports',name),bytes=new Uint8Array(fs.readFileSync(file));const report=await validator.validateBytes(bytes,{uri:name,maxIssues:200});results.push({file,bytes:bytes.length,issues:report.issues,info:report.info});console.log(name+': '+report.issues.numErrors+' errors, '+report.issues.numWarnings+' warnings');}
+fs.writeFileSync('public/preview/glb-validation.json',JSON.stringify(results,null,2));if(results.some(r=>r.issues.numErrors))process.exitCode=1;

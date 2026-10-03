@@ -1,1 +1,23 @@
-{"name":"gpt6-astra-pro-colabdev-web-rgirljk","version":"1.0.0","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","dev":"node scripts/server.mjs","test":"node scripts/test.mjs"},"dependencies":{"three":"0.180.0"},"devDependencies":{"esbuild":"0.25.10","playwright":"1.56.1"}}
+{
+  "name": "gpt6-astra-pro-colabdev-web-rgirljk",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/server.mjs",
+    "test": "node scripts/validate.mjs && node scripts/ui-test.mjs",
+    "capture": "node scripts/capture.mjs",
+    "export-model": "node scripts/export.mjs",
+    "compress": "gltfpack -i public/exports/gpt6_astra_pro_colabdev_web_rgirljk.glb -o public/exports/gpt6_astra_pro_colabdev_web_rgirljk_web.glb -cc -kn -km -ke"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "gltf-validator": "2.0.0-dev.3.10",
+    "gltfpack": "1.3.0",
+    "playwright": "1.56.1"
+  }
+}

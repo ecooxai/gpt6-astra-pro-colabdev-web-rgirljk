@@ -1,4 +1,5 @@
+import {buildDir} from './paths.mjs';
 import http from 'node:http';import fs from 'node:fs';import path from 'node:path';
-const root='/build/gpt6_astra_pro_colabdev_web_rgirljk',port=Number(process.env.PORT||4317);
+const root=buildDir,port=Number(process.env.PORT||4317);
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.jpg':'image/jpeg','.glb':'model/gltf-binary','.zip':'application/zip','.md':'text/plain'};
 http.createServer((req,res)=>{let pathname;try{pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname)}catch{res.writeHead(400).end();return;}let file=path.resolve(root,'.'+pathname);if(!file.startsWith(root+path.sep)&&file!==root){res.writeHead(403).end();return;}if(fs.existsSync(file)&&fs.statSync(file).isDirectory())file=path.join(file,'index.html');if(!fs.existsSync(file)){res.writeHead(404).end('Not found');return;}res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.setHeader('Cache-Control','no-cache');fs.createReadStream(file).pipe(res);}).listen(port,'0.0.0.0',()=>console.log('Character preview listening '+port));

@@ -1,7 +1,7 @@
 {
-  "iteration": 9,
+  "iteration": 11,
   "score": 73,
-  "note": "Refined eyelid opening, nose details, head tilt, and ponytail taper. Facial likeness remains stylized, below the requested 95/100 target.",
+  "note": "Reset clears orbit momentum and turntable state. Camera/material controls, touch orbit, GLB download integrity and PNG snapshots pass. Visual likeness remains 73/100.",
   "revisions": [
     {
       "iteration": 1,
@@ -253,6 +253,52 @@
         {
           "label": "three",
           "path": "preview/rev-09-three.png"
+        }
+      ]
+    },
+    {
+      "iteration": 10,
+      "score": 73,
+      "title": "Standalone model and fast web loading",
+      "notes": "Both GLBs pass formal validation with zero errors or warnings. The compressed model preserves appearance and loads without procedural reconstruction. Visual likeness remains 73/100.",
+      "image": "preview/rev-10-front.png",
+      "views": [
+        {
+          "label": "back",
+          "path": "preview/rev-10-back.png"
+        },
+        {
+          "label": "face",
+          "path": "preview/rev-10-face.png"
+        },
+        {
+          "label": "front",
+          "path": "preview/rev-10-front.png"
+        },
+        {
+          "label": "hands",
+          "path": "preview/rev-10-hands.png"
+        },
+        {
+          "label": "three",
+          "path": "preview/rev-10-three.png"
+        }
+      ]
+    },
+    {
+      "iteration": 11,
+      "score": 73,
+      "title": "Touch controls and release checks",
+      "notes": "Reset clears orbit momentum and turntable state. Camera/material controls, touch orbit, GLB download integrity and PNG snapshots pass. Visual likeness remains 73/100.",
+      "image": "preview/ui-1440.png",
+      "views": [
+        {
+          "label": "desktop studio",
+          "path": "preview/ui-1440.png"
+        },
+        {
+          "label": "mobile studio",
+          "path": "preview/ui-390.png"
         }
       ]
     }
