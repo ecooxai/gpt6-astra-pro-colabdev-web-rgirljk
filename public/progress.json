@@ -1,0 +1,14 @@
+{
+  "iteration": 1,
+  "score": 43,
+  "note": "Recognizable outfit and pose. Facial banding, scalp gaps, tooth shape and sock intersections need correction.",
+  "revisions": [
+    {
+      "iteration": 1,
+      "score": 43,
+      "title": "First complete assembly",
+      "notes": "Recognizable outfit and pose. Facial banding, scalp gaps, tooth shape and sock intersections need correction.",
+      "image": "preview/rev-01-front.png"
+    }
+  ]
+}
