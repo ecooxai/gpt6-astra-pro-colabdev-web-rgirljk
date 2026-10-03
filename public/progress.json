@@ -1,7 +1,7 @@
 {
-  "iteration": 12,
-  "score": 73,
-  "note": "Curved eyes, recessed oral geometry and blended lips are implemented. Raised eyelids, exposed lower teeth and molded hair remain; visual likeness score is unchanged.",
+  "iteration": 14,
+  "score": 74,
+  "note": "Eyelids now share the head surface, scalp/fringe intersection is corrected, and skin has original microstructure. Face, front and back views inspected. Likeness remains stylized and below the target.",
   "revisions": [
     {
       "iteration": 1,
@@ -308,6 +308,20 @@
       "title": "Integrated facial reconstruction",
       "notes": "Curved eyes, recessed oral geometry and blended lips are implemented. Raised eyelids, exposed lower teeth and molded hair remain; visual likeness score is unchanged.",
       "image": "preview/rev-12-front.png"
+    },
+    {
+      "iteration": 13,
+      "score": 72,
+      "title": "Swept hair and portrait diagnostics",
+      "notes": "New tapered hair and finer fibres are present, but the scalp overlaps the fringe and separate eyelid patches create seams. This experimental revision is below the previous 73/100 checkpoint.",
+      "image": "preview/rev-13-front.png"
+    },
+    {
+      "iteration": 14,
+      "score": 74,
+      "title": "Continuous eyelids and corrected hair overlap",
+      "notes": "Eyelids now share the head surface, scalp/fringe intersection is corrected, and skin has original microstructure. Face, front and back views inspected. Likeness remains stylized and below the target.",
+      "image": "preview/rev-14-front.png"
     }
   ],
   "requestedIterations": 20000,
