@@ -1,35 +1,263 @@
 {
-  "iteration": 4,
-  "score": 68,
-  "note": "Clipped irises, visible lip surfaces, conforming hair strands. Stylized facial likeness still needs work.",
+  "iteration": 9,
+  "score": 73,
+  "note": "Refined eyelid opening, nose details, head tilt, and ponytail taper. Facial likeness remains stylized, below the requested 95/100 target.",
   "revisions": [
     {
       "iteration": 1,
       "score": 43,
       "title": "First complete assembly",
       "notes": "Recognizable outfit and pose. Facial banding, scalp gaps, tooth shape and sock intersections need correction.",
-      "image": "preview/rev-01-front.png"
+      "image": "preview/rev-01-front.png",
+      "views": [
+        {
+          "label": "back",
+          "path": "preview/rev-01-back.png"
+        },
+        {
+          "label": "face",
+          "path": "preview/rev-01-face.png"
+        },
+        {
+          "label": "front",
+          "path": "preview/rev-01-front.png"
+        },
+        {
+          "label": "three",
+          "path": "preview/rev-01-three.png"
+        }
+      ]
     },
     {
       "iteration": 2,
       "score": 55,
       "title": "Continuous surfaces and complete scalp",
       "notes": "Scalp gaps and sock intersections corrected. Facial proportions, smile, strap width and cloth detail remain below the reference target.",
-      "image": "preview/rev-02-front.png"
+      "image": "preview/rev-02-front.png",
+      "views": [
+        {
+          "label": "back",
+          "path": "preview/rev-02-back.png"
+        },
+        {
+          "label": "face",
+          "path": "preview/rev-02-face.png"
+        },
+        {
+          "label": "front",
+          "path": "preview/rev-02-front.png"
+        },
+        {
+          "label": "three",
+          "path": "preview/rev-02-three.png"
+        }
+      ]
     },
     {
       "iteration": 3,
       "score": 63,
       "title": "Proportion and smile correction",
       "notes": "More faithful skirt length, strap width and restrained smile. Complete rear geometry. Facial likeness and natural hair flow still need refinement.",
-      "image": "preview/rev-03-front.png"
+      "image": "preview/rev-03-front.png",
+      "views": [
+        {
+          "label": "back",
+          "path": "preview/rev-03-back.png"
+        },
+        {
+          "label": "face",
+          "path": "preview/rev-03-face.png"
+        },
+        {
+          "label": "front",
+          "path": "preview/rev-03-front.png"
+        },
+        {
+          "label": "three",
+          "path": "preview/rev-03-three.png"
+        }
+      ]
     },
     {
       "iteration": 4,
       "score": 68,
       "title": "Eyes and hair refinement",
       "notes": "Clipped irises, visible lip surfaces, conforming hair strands. Stylized facial likeness still needs work.",
-      "image": "preview/rev-04-front.png"
+      "image": "preview/rev-04-front.png",
+      "views": [
+        {
+          "label": "back",
+          "path": "preview/rev-04-back.png"
+        },
+        {
+          "label": "face",
+          "path": "preview/rev-04-face.png"
+        },
+        {
+          "label": "front",
+          "path": "preview/rev-04-front.png"
+        },
+        {
+          "label": "three",
+          "path": "preview/rev-04-three.png"
+        }
+      ]
+    },
+    {
+      "iteration": 5,
+      "score": 69,
+      "title": "Lighter geometry and fabric",
+      "notes": "Reduced mesh density, corrected tie stripe direction, and fixed mobile panel sizing. Close inspection identified wrist and shoe seams.",
+      "image": "preview/rev-05-front.png",
+      "views": [
+        {
+          "label": "back",
+          "path": "preview/rev-05-back.png"
+        },
+        {
+          "label": "face",
+          "path": "preview/rev-05-face.png"
+        },
+        {
+          "label": "front",
+          "path": "preview/rev-05-front.png"
+        },
+        {
+          "label": "hands",
+          "path": "preview/rev-05-hands.png"
+        },
+        {
+          "label": "outfit",
+          "path": "preview/rev-05-outfit.png"
+        },
+        {
+          "label": "shoes",
+          "path": "preview/rev-05-shoes.png"
+        },
+        {
+          "label": "side",
+          "path": "preview/rev-05-side.png"
+        },
+        {
+          "label": "three",
+          "path": "preview/rev-05-three.png"
+        }
+      ]
+    },
+    {
+      "iteration": 6,
+      "score": 70,
+      "title": "Connected hands and fitted footwear",
+      "notes": "Continuous palm and finger surfaces replace assembled pieces. Loafer seams conform to the shoe surface. Wrist joins still needed work.",
+      "image": "preview/rev-06-front.png",
+      "views": [
+        {
+          "label": "back",
+          "path": "preview/rev-06-back.png"
+        },
+        {
+          "label": "face",
+          "path": "preview/rev-06-face.png"
+        },
+        {
+          "label": "front",
+          "path": "preview/rev-06-front.png"
+        },
+        {
+          "label": "hands",
+          "path": "preview/rev-06-hands.png"
+        },
+        {
+          "label": "shoes",
+          "path": "preview/rev-06-shoes.png"
+        }
+      ]
+    },
+    {
+      "iteration": 7,
+      "score": 70,
+      "title": "Unified hands and forearms",
+      "notes": "Hands and forearms share one surface. Visual inspection caught a clipping defect in the meshing boundary.",
+      "image": "preview/rev-07-front.png",
+      "views": [
+        {
+          "label": "back",
+          "path": "preview/rev-07-back.png"
+        },
+        {
+          "label": "face",
+          "path": "preview/rev-07-face.png"
+        },
+        {
+          "label": "front",
+          "path": "preview/rev-07-front.png"
+        },
+        {
+          "label": "hands",
+          "path": "preview/rev-07-hands.png"
+        },
+        {
+          "label": "shoes",
+          "path": "preview/rev-07-shoes.png"
+        }
+      ]
+    },
+    {
+      "iteration": 8,
+      "score": 72,
+      "title": "Closed surfaces and tucked fabric",
+      "notes": "Expanded meshing bounds remove the forearm opening. Shirt hem tuck improved. Hands, back, side and outfit inspected.",
+      "image": "preview/rev-08-front.png",
+      "views": [
+        {
+          "label": "back",
+          "path": "preview/rev-08-back.png"
+        },
+        {
+          "label": "front",
+          "path": "preview/rev-08-front.png"
+        },
+        {
+          "label": "hands",
+          "path": "preview/rev-08-hands.png"
+        },
+        {
+          "label": "outfit",
+          "path": "preview/rev-08-outfit.png"
+        },
+        {
+          "label": "side",
+          "path": "preview/rev-08-side.png"
+        }
+      ]
+    },
+    {
+      "iteration": 9,
+      "score": 73,
+      "title": "Softer smiling expression",
+      "notes": "Refined eyelid opening, nose details, head tilt, and ponytail taper. Facial likeness remains stylized, below the requested 95/100 target.",
+      "image": "preview/rev-09-front.png",
+      "views": [
+        {
+          "label": "back",
+          "path": "preview/rev-09-back.png"
+        },
+        {
+          "label": "face",
+          "path": "preview/rev-09-face.png"
+        },
+        {
+          "label": "front",
+          "path": "preview/rev-09-front.png"
+        },
+        {
+          "label": "three",
+          "path": "preview/rev-09-three.png"
+        }
+      ]
     }
-  ]
+  ],
+  "requestedIterations": 20000,
+  "targetScore": 95,
+  "goalReached": false
 }
