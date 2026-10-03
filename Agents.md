@@ -62,3 +62,14 @@ Journal data and actual PNG evidence are in `public/progress.json` and `public/p
 Keep source and generated artifacts clean. Commit significant changes on the named branch. Check `deployment.json` for the latest persistent repository and Pages URL once deployed. The deployment branch is `gh-pages`; source must remain on the model/agent branch. The user authorized public deployment and a source push. GitHub CLI is authenticated as `ecooxai`; do not print credentials. Use HTTPS credential-helper authentication if SSH is unavailable.
 
 Continue toward reference likeness with real visual comparison. Preserve a working published checkpoint, update journal and handoff after every accepted change, and leave the dev server available. Never silently claim that the unmet 20,000-iteration or >95 target was completed.
+
+
+## Verified publication
+
+Public studio: https://ecooxai.github.io/gpt6-astra-pro-colabdev-web-rgirljk/
+
+Source: https://github.com/ecooxai/gpt6-astra-pro-colabdev-web-rgirljk
+
+The gh-pages branch serves the static build, models and complete project ZIP. The public viewer passed a real headless-Chrome startup and view-switching test with no errors. All tested model/archive/handoff URLs returned HTTP 200. See public/preview/deployment-test.json. Review count remains 11 and visual score remains 73/100; publication does not satisfy the unmet 20,000-iteration or >95 goal.
+
+For incremental deployment, copy the build into .runtime/pages, commit and push its gh-pages branch. Keep its .git directory. Large ZIP delta compression may be slow; per-command pack.window=0 is appropriate for the generated archive. Avoid reinitializing the source project or stopping other Colab work.

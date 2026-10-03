@@ -1,0 +1,55 @@
+{
+  "url": "https://ecooxai.github.io/gpt6-astra-pro-colabdev-web-rgirljk/",
+  "verifiedAt": "2026-10-03T13:25:04.796Z",
+  "passed": true,
+  "checks": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "contentLength": "2928"
+    },
+    {
+      "path": "Agents.md",
+      "status": 200,
+      "contentType": "text/markdown; charset=utf-8",
+      "contentLength": "3590"
+    },
+    {
+      "path": "exports/gpt6_astra_pro_colabdev_web_rgirljk.glb",
+      "status": 200,
+      "contentType": "model/gltf-binary",
+      "contentLength": "8184358"
+    },
+    {
+      "path": "exports/gpt6_astra_pro_colabdev_web_rgirljk_web.glb",
+      "status": 200,
+      "contentType": "model/gltf-binary",
+      "contentLength": "1442323"
+    },
+    {
+      "path": "exports/gpt6_astra_pro_colabdev_web_rgirljk_project.zip",
+      "status": 200,
+      "contentType": "application/x-zip-compressed",
+      "contentLength": "51583702"
+    }
+  ],
+  "stats": {
+    "triangles": 565007,
+    "drawCalls": 33,
+    "modelSource": "prebuilt",
+    "modelLoadMilliseconds": 363.59999999962747,
+    "geometries": 36,
+    "textures": 9,
+    "mode": "textured",
+    "activeView": "front",
+    "render": {
+      "frame": 36,
+      "calls": 35,
+      "triangles": 565011,
+      "points": 0,
+      "lines": 0
+    }
+  },
+  "errors": []
+}
