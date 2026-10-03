@@ -1,0 +1,17 @@
+{
+  "repository_url": "https://github.com/ecooxai/gpt6-astra-pro-colabdev-web-rgirljk",
+  "pages_url": "https://ecooxai.github.io/gpt6-astra-pro-colabdev-web-rgirljk/",
+  "source_branch": "gpt6-astra-pro-colabdev/reference-character",
+  "deployment_branch": "gh-pages",
+  "temporary_preview_url": "https://freelance-ethics-strike-countries.trycloudflare.com",
+  "local_preview_url": "http://127.0.0.1:4317",
+  "project_path": "/home/dev/project/3d/gpt6_astra_pro_colabdev_web_rgirljk",
+  "build_path": "/build/gpt6_astra_pro_colabdev_web_rgirljk",
+  "verified_at": "2026-10-03T13:26:06.643959+00:00",
+  "completed_reviews": 11,
+  "visual_score": 73,
+  "requested_iterations": 20000,
+  "target_score": 95,
+  "goal_reached": false,
+  "status": "Published working checkpoint; further likeness work required."
+}

@@ -2,6 +2,10 @@
 
 A reference-led, full-3D character and interactive web studio, built by GPT-6 Astra Pro with Colabdev, JavaScript, Three.js and headless Chromium.
 
+## Published project
+
+[Interactive studio](https://ecooxai.github.io/gpt6-astra-pro-colabdev-web-rgirljk/) · [Source repository](https://github.com/ecooxai/gpt6-astra-pro-colabdev-web-rgirljk) · [Project archive](https://ecooxai.github.io/gpt6-astra-pro-colabdev-web-rgirljk/exports/gpt6_astra_pro_colabdev_web_rgirljk_project.zip)
+
 ## Current result
 
 The supplied photograph is represented as a **stylized approximation**, not a photorealistic likeness. Eleven substantial model/viewer revisions have been built, rendered, reviewed and recorded. The latest subjective visual assessment is **73/100**. The requested **20,000 iterations and greater-than-95/100 quality target have not been achieved**. A successful technical test is not counted as improved visual likeness.
