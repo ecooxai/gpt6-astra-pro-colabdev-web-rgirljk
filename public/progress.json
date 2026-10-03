@@ -1,7 +1,7 @@
 {
-  "iteration": 3,
-  "score": 63,
-  "note": "More faithful skirt length, strap width and restrained smile. Complete rear geometry. Facial likeness and natural hair flow still need refinement.",
+  "iteration": 4,
+  "score": 68,
+  "note": "Clipped irises, visible lip surfaces, conforming hair strands. Stylized facial likeness still needs work.",
   "revisions": [
     {
       "iteration": 1,
@@ -23,6 +23,13 @@
       "title": "Proportion and smile correction",
       "notes": "More faithful skirt length, strap width and restrained smile. Complete rear geometry. Facial likeness and natural hair flow still need refinement.",
       "image": "preview/rev-03-front.png"
+    },
+    {
+      "iteration": 4,
+      "score": 68,
+      "title": "Eyes and hair refinement",
+      "notes": "Clipped irises, visible lip surfaces, conforming hair strands. Stylized facial likeness still needs work.",
+      "image": "preview/rev-04-front.png"
     }
   ]
 }
