@@ -4,7 +4,7 @@ import {materials} from './materials.js';
 import {makeHead} from './head.js';
 import {makeLimbs,makeBackpack} from './details.js';
 export function buildCharacter(){const root=new T.Group(),M=materials();root.name='Original procedural campus portrait';
-loft('Anatomical neck',[[5.94,.11,0,.22,.19],[6.17,.13,.01,.196,.174],[6.39,.14,.026,.172,.16],[6.59,.15,.035,.24,.18]],M.skin,root,56,60);
+loft('Anatomical neck',[[5.94,.11,0,.22,.19],[6.17,.13,.01,.196,.174],[6.39,.21,.066,.172,.16],[6.59,.263,.075,.24,.18]],M.skin,root,56,60);
 loft('Woven blouse body',[[4.53,0,0,.495,.25],[4.67,0,0,.565,.29],[4.86,.01,0,.51,.27],[5.14,.035,.005,.515,.285],[5.42,.07,.005,.574,.31],[5.69,.1,-.007,.636,.335],[5.91,.11,-.02,.703,.295],[6.08,.12,-.02,.70,.245],[6.17,.12,-.01,.345,.21]],M.shirt,root,128,140,(p,a,v)=>{let fold=(.01*Math.sin(a*18+v*10)+.006*Math.sin(a*31-v*26))*(.3+.7*Math.pow(1-v,2));fold+=.018*Math.sin(v*45+Math.sin(a*3)*3)*Math.pow(Math.abs(Math.sin(a)),5);fold*=Math.min(1,v/.10);p[0]+=Math.sin(a)*fold;p[2]+=Math.cos(a)*fold;if(v>.83)p[1]-=.27*Math.pow(Math.max(0,Math.cos(a)),12)*((v-.83)/.17);return p;});
 patch('Button placket',[[0,.037,4.66,.298,.070],[.35,.051,5.10,.301,.068],[.7,.086,5.50,.334,.066],[1,.126,5.91,.286,.068]],M.shirt,root);
 for(let y of [4.79,5.05,5.31,5.57]){const x=.045+(y-4.8)*.062,z=y<5.25?.318:.352;ball('Sewn pearl button',[x,y,z],[.024,.024,.009],M.button,root,20);for(let dx of [-.006,.006])ball('Button thread',[x+dx,y,z+.009],[.002,.007,.001],M.seam,root,10);}

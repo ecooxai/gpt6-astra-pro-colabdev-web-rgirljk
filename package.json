@@ -12,6 +12,7 @@
     "compress": "gltfpack -i public/exports/gpt6_astra_pro_colabdev_web_rgirljk.glb -o public/exports/gpt6_astra_pro_colabdev_web_rgirljk_web.glb -cc -kn -km -ke"
   },
   "dependencies": {
+    "poly2tri": "1.5.0",
     "three": "0.180.0"
   },
   "devDependencies": {
