@@ -1,7 +1,7 @@
 {
-  "iteration": 2,
-  "score": 55,
-  "note": "Scalp gaps and sock intersections corrected. Facial proportions, smile, strap width and cloth detail remain below the reference target.",
+  "iteration": 3,
+  "score": 63,
+  "note": "More faithful skirt length, strap width and restrained smile. Complete rear geometry. Facial likeness and natural hair flow still need refinement.",
   "revisions": [
     {
       "iteration": 1,
@@ -16,6 +16,13 @@
       "title": "Continuous surfaces and complete scalp",
       "notes": "Scalp gaps and sock intersections corrected. Facial proportions, smile, strap width and cloth detail remain below the reference target.",
       "image": "preview/rev-02-front.png"
+    },
+    {
+      "iteration": 3,
+      "score": 63,
+      "title": "Proportion and smile correction",
+      "notes": "More faithful skirt length, strap width and restrained smile. Complete rear geometry. Facial likeness and natural hair flow still need refinement.",
+      "image": "preview/rev-03-front.png"
     }
   ]
 }

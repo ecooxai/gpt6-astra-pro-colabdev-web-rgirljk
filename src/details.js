@@ -5,7 +5,7 @@ for(let s of [-1,1]){const sh=[s*.65+.1,5.94,-.015],el=[s*.79+.07,4.89,-.086],cu
 sweep('Rolled cuff cotton',[[cuff[0],4.65,-.095],[cuff[0]+s*.012,4.73,-.10],[cuff[0]+s*.027,4.85,-.096]],[[0,.166],[.3,.177],[.7,.174],[1,.161]],M.shirt,root,32,48);
 sweep('Cuff edge piping',[[cuff[0]+s*.015,4.805,-.096],[cuff[0]+s*.018,4.824,-.096]],[[0,.177],[1,.178]],M.seam,root,6,48);
 const wrist=[s*.37+.01,4.18,-.472];sweep('Natural forearm',[[cuff[0],4.69,-.102],[s*.66+.025,4.43,-.225],wrist],[[0,.137],[.30,.135],[.72,.105],[1,.079]],M.skin,root,60,32,1.06);
-const hand=new T.Group();hand.position.set(...wrist);hand.rotation.z=s*-.20;hand.rotation.x=-.14;root.add(hand);ball('Palm dorsal anatomy',[0,-.108,-.012],[.104,.153,.052],M.skin,hand);ball('Thumb muscle',[s*.075,-.085,.009],[.053,.086,.044],M.skin,hand);
+const hand=new T.Group();hand.position.set(...wrist);hand.rotation.z=s*-.20;hand.rotation.x=-.14;root.add(hand);ball('Wrist transition',[0,-.02,-.005],[.08,.07,.065],M.skin,hand);ball('Palm dorsal anatomy',[0,-.108,-.012],[.104,.153,.052],M.skin,hand);ball('Thumb muscle',[s*.075,-.085,.009],[.053,.086,.044],M.skin,hand);
 for(let j=0;j<4;j++){let x=(j-1.5)*.047,len=[.16,.203,.189,.146][j];sweep('Finger '+j,[[x,-.189,-.012],[x+s*.014,-.247,-.026],[x+s*.012,-.18-len,-.043]],[[0,.026],[.47,.024],[.8,.020],[1,.009]],M.skin,hand,26,12);ball('Fingernail',[x+s*.012,-.173-len,-.062],[.016,.026,.003],M.lid,hand,16);}
 sweep('Articulated thumb',[[s*.075,-.075,.008],[s*.139,-.147,-.036],[s*.128,-.214,-.072]],[[0,.044],[.5,.034],[1,.019]],M.skin,hand,32,16);
 }
@@ -20,8 +20,8 @@ export function makeBackpack(root,M){
 box('Backpack main body',[.075,5.40,-.51],[1.00,1.28,.46],M.bag,root,.18);box('Backpack pocket',[.075,5.22,-.785],[.79,.75,.17],M.bag,root,.11);
 tube('Backpack piping',[[-.37,4.87,-.75],[-.43,5.45,-.74],[-.36,5.99,-.66],[.11,6.06,-.64],[.49,5.95,-.66],[.57,5.43,-.73],[.52,4.88,-.75],[-.37,4.87,-.75]],.011,M.bagEdge,root,100,6);
 tube('Backpack handle',[[-.12,6.00,-.54],[-.1,6.22,-.54],[.22,6.23,-.54],[.26,6.02,-.54]],.028,M.webbing,root,32,8);
-for(let s of [-1,1]){const x=s*.59+.1;sweep('Padded shoulder strap',[[x,5.31,.306],[x+s*.052,5.73,.29],[x,6.04,.16],[x-s*.02,6.06,-.29],[s*.39+.08,5.76,-.70]],[[0,.070],[.4,.092],[.65,.098],[1,.072]],M.bag,root,64,20,.26);
-sweep('Lower bag strap',[[x,5.36,.29],[x-s*.008,5.08,.28],[s*.61+.06,4.87,.11],[s*.47+.07,4.9,-.44]],[[0,.040],[1,.036]],M.webbing,root,44,16,.24);
+for(let s of [-1,1]){const x=s*.59+.1;sweep('Padded shoulder strap',[[x,5.31,.306],[x+s*.052,5.73,.29],[x,6.04,.16],[x-s*.02,6.06,-.29],[s*.39+.08,5.76,-.70]],[[0,.027],[.4,.032],[.65,.033],[1,.025]],M.bag,root,64,20,3.1);
+sweep('Lower bag strap',[[x,5.36,.29],[x-s*.008,5.08,.28],[s*.61+.06,4.87,.11],[s*.47+.07,4.9,-.44]],[[0,.014],[1,.013]],M.webbing,root,44,16,2.8);
 box('Adjustment buckle',[x,5.36,.327],[.135,.17,.049],M.metal,root,.018);box('Buckle slot',[x,5.36,.356],[.09,.042,.006],M.webbing,root,.005);box('Buckle crossbar',[x,5.36,.363],[.116,.022,.018],M.metal,root,.005);}
 tube('Pocket zipper',[[-.27,5.55,-.868],[.075,5.59,-.873],[.415,5.55,-.868]],.009,M.metal,root,30,6);
 for(let i=0;i<35;i++)box('Zipper tooth',[-.27+i*.0196,5.554+.031*Math.sin(i/34*Math.PI),-.878],[.008,.017,.009],M.gold,root,.002);
