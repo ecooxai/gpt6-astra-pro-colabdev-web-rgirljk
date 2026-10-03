@@ -1,7 +1,7 @@
 {
-  "iteration": 1,
-  "score": 43,
-  "note": "Recognizable outfit and pose. Facial banding, scalp gaps, tooth shape and sock intersections need correction.",
+  "iteration": 2,
+  "score": 55,
+  "note": "Scalp gaps and sock intersections corrected. Facial proportions, smile, strap width and cloth detail remain below the reference target.",
   "revisions": [
     {
       "iteration": 1,
@@ -9,6 +9,13 @@
       "title": "First complete assembly",
       "notes": "Recognizable outfit and pose. Facial banding, scalp gaps, tooth shape and sock intersections need correction.",
       "image": "preview/rev-01-front.png"
+    },
+    {
+      "iteration": 2,
+      "score": 55,
+      "title": "Continuous surfaces and complete scalp",
+      "notes": "Scalp gaps and sock intersections corrected. Facial proportions, smile, strap width and cloth detail remain below the reference target.",
+      "image": "preview/rev-02-front.png"
     }
   ]
 }

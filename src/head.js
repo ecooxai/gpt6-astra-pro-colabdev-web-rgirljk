@@ -1,5 +1,5 @@
 import * as T from 'three';
-import {surface,ball,tube,sweep,sample,mix,V} from './geometry.js';
+import {surface,ball,box,tube,sweep,sample,mix,V} from './geometry.js';
 const gauss=(x,y,cx,cy,sx,sy)=>Math.exp(-(((x-cx)/sx)**2+((y-cy)/sy)**2));
 const headRows=[[-.51,.024,.075],[-.46,.145,.205],[-.37,.267,.265],[-.23,.345,.296],[-.055,.395,.318],[.12,.389,.325],[.30,.367,.319],[.46,.287,.25],[.55,.07,.08],[.565,.002,.002]];
 function headShape(x,y){const [rx,rz]=sample(headRows,y);let z=rz*Math.pow(Math.max(0,1-(x/rx)**2),.32);z+=.052*gauss(x,y,0,.025,.046,.18)+.104*gauss(x,y,0,-.087,.064,.053);z+=.029*(gauss(x,y,-.064,-.105,.042,.03)+gauss(x,y,.064,-.105,.042,.03));z-=.024*(gauss(x,y,-.162,.069,.109,.055)+gauss(x,y,.162,.069,.109,.055));z+=.021*(gauss(x,y,-.236,-.079,.092,.09)+gauss(x,y,.236,-.079,.092,.09));z+=.022*gauss(x,y,0,-.21,.16,.095)-.037*gauss(x,y,0,-.25,.146,.047);return z;}
@@ -22,16 +22,16 @@ function mz(t){return .325-.018*t*t;}
 surface('Open smiling mouth',64,16,(u,v)=>{let t=u*2-1,w=Math.max(0,1-t*t),y=mouthLine(t)+mix(-.044*w,.019*w,v);return[t*mw,y,mz(t)];},M.mouth,h);
 surface('Upper lip vermilion',64,10,(u,v)=>{let t=u*2-1,w=1-t*t,base=mouthLine(t)+.018*w,cupid=.006*Math.cos(t*12)*Math.exp(-t*t*10);return[t*mw,base+v*(.018*w+cupid),mz(t)+.004+.010*Math.sin(v*Math.PI)*w];},M.lipTop,h);
 surface('Lower lip vermilion',64,10,(u,v)=>{let t=u*2-1,w=1-t*t;return[t*mw,mouthLine(t)-.044*w-v*.022*w,mz(t)+.004+.013*Math.sin(v*Math.PI)*w];},M.lip,h);
-for(let i=0;i<8;i++){const t=(i-3.5)/4.25,x=t*mw,y=mouthLine(t)-.004;let b=ball('Upper tooth '+(i+1),[x,y,mz(t)+.006],[i===3||i===4?.020:.017,.021,.009],M.teeth,h,24);b.rotation.z=-t*.22;}
+for(let i=0;i<8;i++){const t=(i-3.5)/4.25,x=t*mw,y=mouthLine(t)-.004;let b=box('Upper tooth '+(i+1),[x,y+.007,mz(t)+.003],[.034,.035,.018],M.teeth,h,.005);b.rotation.z=-t*.22;}
 surface('Lower visible teeth',48,6,(u,v)=>{let t=(u*2-1)*.78,w=1-t*t;return[t*mw,mouthLine(t)-.037*w+v*.012*w,mz(t)+.002];},M.teeth,h);
 for(let s of [-1,1])tube('Smile corner fold',[[s*.154,-.183,.309],[s*.163,-.174,.302],[s*.169,-.162,.299]],.0025,M.inner,h,16,5);
 // A complete scalp shell: no photographic projection, viewed naturally from every side.
-surface('Fitted hair cap',128,88,(u,v)=>{let a=u*Math.PI*2,front=Math.cos(a),end=front>0?1.43:2.52;end+=.1*Math.abs(Math.sin(a));let ph=.001+v*end,x=.421*Math.sin(ph)*Math.sin(a),y=.095+.488*Math.cos(ph),z=-.022+.36*Math.sin(ph)*Math.cos(a);return[x,y,z];},M.hair,h);
+surface('Fitted hair cap',128,96,(u,v)=>{let a=u*Math.PI*2,front=Math.cos(a),end=front>0?.17-.12*Math.abs(Math.sin(a)):-.37,y=mix(.587,end,v),[rx,rz]=sample(headRows,Math.min(y,.565)),edge=Math.min(1,(.59-y)*30);rx+=.031*edge;rz+=.036*edge;let x=rx*Math.sin(a),z=front>0?rz*Math.pow(Math.max(0,Math.cos(a)),.64):rz*Math.cos(a);return[x,y,z-.003];},M.hair,h);
 // Side-swept fringe volumes, each with individually constructed surface fibres.
 function lock(name,points,width,depth,fibres=14){const curve=new T.CatmullRomCurve3(points.map(V));surface(name,32,56,(u,v)=>{let p=curve.getPoint(v),tan=curve.getTangent(v),side=new T.Vector3(tan.y,-tan.x,0).normalize();let taper=Math.pow(Math.sin(Math.PI*(.035+.965*v)),.55),a=u*Math.PI*2;p.addScaledVector(side,width*taper*Math.sin(a));p.z+=depth*taper*Math.cos(a);return p.toArray();},M.hair,h);for(let j=0;j<fibres;j++){let off=(j/(fibres-1)-.5)*1.8,pts=[];for(let k=0;k<=36;k++){let v=.025+k/36*.95,p=curve.getPoint(v),tan=curve.getTangent(v),side=new T.Vector3(tan.y,-tan.x,0).normalize(),taper=Math.pow(Math.sin(Math.PI*(.035+.965*v)),.55);p.addScaledVector(side,width*taper*off);p.z+=depth*taper*Math.sqrt(Math.max(0,1-off*off))+.0015;pts.push(p.toArray());}tube('Fringe silk fibre',pts,j%4===0?.0014:.0011,j%6===0?M.hairLight:M.hairLine,h,40,4);}}
 lock('Broad swept fringe A',[[.17,.49,.21],[.08,.39,.328],[-.08,.25,.358],[-.29,.17,.284]],.108,.024,25);
-lock('Broad swept fringe B',[[.22,.46,.19],[.12,.33,.35],[-.06,.18,.369],[-.29,.119,.29]],.105,.027,25);
-lock('Lower swept fringe',[[.20,.43,.25],[.09,.28,.367],[-.06,.15,.382],[-.25,.098,.328]],.075,.022,21);
+lock('Broad swept fringe B',[[.22,.46,.19],[.12,.33,.35],[-.06,.24,.369],[-.29,.175,.29]],.105,.027,25);
+lock('Lower swept fringe',[[.20,.43,.25],[.09,.28,.367],[-.06,.23,.382],[-.25,.18,.328]],.075,.022,21);
 lock('Temple fringe',[[.25,.43,.18],[.31,.26,.26],[.32,.09,.26],[.35,-.11,.17]],.049,.025,12);
 lock('Left temple lock',[[-.14,.48,.17],[-.32,.29,.23],[-.37,.06,.17],[-.36,-.19,.16]],.043,.026,13);
 for(let s of [-1,1]){
