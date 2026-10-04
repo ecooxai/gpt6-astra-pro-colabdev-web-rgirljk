@@ -9,4 +9,4 @@ export function buildCharacter(){const root=new T.Group(),M=materials();root.nam
 loft('Anatomical neck',[[5.67,.105,.005,.48,.255],[5.85,.116,.008,.337,.254],[6.03,.133,.015,.239,.208],[6.17,.151,.03,.190,.176],[6.36,.218,.102,.178,.161],[6.56,.254,.117,.226,.178]],M.skin,root,56,60);
 makeGarments(root,M);
 makeLimbs(root,M);makeBackpack(root,M);makeHead(root,M);
-let result=bake(root);result.userData={provenance:'All geometry, hair fibres and texture patterns authored from scratch in JavaScript. Reference image is never sampled by the model.',revision:43,faceParameters:FACE_PARAMETERS};return result;}
+let result=bake(root);result.userData={provenance:'All geometry, hair fibres and texture patterns authored from scratch in JavaScript. Reference image is never sampled by the model.',revision:44,faceParameters:FACE_PARAMETERS};return result;}

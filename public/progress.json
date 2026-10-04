@@ -1,7 +1,7 @@
 {
-  "iteration": 43,
-  "score": 82,
-  "note": "The teeth are no longer rectangular bars and the nose-to-eye distance is closer to the reference. The profile exposes an abrupt chin transition, and the visible tooth height still needs balancing. The score is unchanged.",
+  "iteration": 44,
+  "score": 83,
+  "note": "The tapered lower face and forward chin now transition more smoothly in portrait and profile. Head inclination is closer to the reference, and tooth coverage is improved. Ear anatomy, skin shading and hair flow remain substantial likeness gaps.",
   "revisions": [
     {
       "iteration": 1,
@@ -525,6 +525,13 @@
       "title": "Rounded tooth crowns and restored lower-face length",
       "notes": "The teeth are no longer rectangular bars and the nose-to-eye distance is closer to the reference. The profile exposes an abrupt chin transition, and the visible tooth height still needs balancing. The score is unchanged.",
       "image": "preview/rev-43-front.png"
+    },
+    {
+      "iteration": 44,
+      "score": 83,
+      "title": "Smoother jaw contour and reference-led head inclination",
+      "notes": "The tapered lower face and forward chin now transition more smoothly in portrait and profile. Head inclination is closer to the reference, and tooth coverage is improved. Ear anatomy, skin shading and hair flow remain substantial likeness gaps.",
+      "image": "preview/rev-44-front.png"
     }
   ],
   "requestedIterations": 20000,

@@ -4,9 +4,9 @@ function value(name,fallback,lo,hi){const raw=query.get(name),n=raw===null?fallb
 export const FACE_PARAMETERS=Object.freeze({
  noseLift:value('noseLift',.035,0,.085),
  mouthLift:value('mouthLift',.008,0,.055),
- jawShorten:value('jawShorten',-.028,-.055,.045),
+ jawShorten:value('jawShorten',-.042,-.055,.045),
  earLift:value('earLift',.025,0,.14),
- jawForward:value('jawForward',.18,0,.20),
+ jawForward:value('jawForward',.155,0,.20),
  earScale:value('earScale',1.16,1,1.25),
  smileArch:value('smileArch',.010,0,.020)
 });
