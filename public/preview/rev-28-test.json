@@ -1,0 +1,36 @@
+{
+  "iteration": 28,
+  "trial": {
+    "n": 28,
+    "name": "Soft portrait",
+    "key": 1.2,
+    "fill": 1,
+    "hemi": 0.8,
+    "env": 0.6,
+    "rim": 1.4,
+    "exposure": 1.05,
+    "keyPos": [
+      -5,
+      9,
+      9
+    ]
+  },
+  "errors": [],
+  "stats": {
+    "triangles": 882160,
+    "drawCalls": 36,
+    "modelSource": "procedural",
+    "modelLoadMilliseconds": 12212.299999999814,
+    "geometries": 39,
+    "textures": 10,
+    "mode": "textured",
+    "activeView": "front",
+    "render": {
+      "frame": 48,
+      "calls": 38,
+      "triangles": 882164,
+      "points": 0,
+      "lines": 0
+    }
+  }
+}

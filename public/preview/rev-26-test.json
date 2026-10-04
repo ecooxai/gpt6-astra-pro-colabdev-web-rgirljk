@@ -1,0 +1,36 @@
+{
+  "iteration": 26,
+  "trial": {
+    "n": 26,
+    "name": "Directional daylight",
+    "key": 3.2,
+    "fill": 0.35,
+    "hemi": 0.4,
+    "env": 0.25,
+    "rim": 2,
+    "exposure": 1,
+    "keyPos": [
+      -4,
+      10,
+      5
+    ]
+  },
+  "errors": [],
+  "stats": {
+    "triangles": 882160,
+    "drawCalls": 36,
+    "modelSource": "procedural",
+    "modelLoadMilliseconds": 12212.299999999814,
+    "geometries": 39,
+    "textures": 10,
+    "mode": "textured",
+    "activeView": "front",
+    "render": {
+      "frame": 40,
+      "calls": 38,
+      "triangles": 882164,
+      "points": 0,
+      "lines": 0
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "iteration": 22,
-  "score": 79,
-  "note": "Corrected inward-facing necktie loops, non-monotonic neckline mapping and skirt-waist intersections. Rounded sleeve caps now join the torso. Face and hair likeness remain below target.",
+  "iteration": 29,
+  "score": 80,
+  "note": "Original eyebrow fibre density now complements the fine hair geometry. Balanced daylight is retained. The face is still visibly stylized; the thin upper-lip highlight and thick hair clumps remain active issues.",
   "revisions": [
     {
       "iteration": 1,
@@ -378,6 +378,55 @@
       "title": "Connected neckline, visible tie loops and clean tuck",
       "notes": "Corrected inward-facing necktie loops, non-monotonic neckline mapping and skirt-waist intersections. Rounded sleeve caps now join the torso. Face and hair likeness remain below target.",
       "image": "preview/rev-22-front.png"
+    },
+    {
+      "iteration": 23,
+      "score": 79,
+      "title": "Shorter hair and reduced synthetic glare",
+      "notes": "Ponytail lengths are closer and distracting silver highlights are reduced. The groom is still too solid and the face remains stylized; score is unchanged.",
+      "image": "preview/rev-23-front.png"
+    },
+    {
+      "iteration": 24,
+      "score": 79,
+      "title": "Skin microstructure and oral-depth review",
+      "notes": "Added original procedural pore normals and smoother tissue transitions. Close three-quarter inspection shows the mouth is too wide and the teeth intersect the inner lip contour; these remain active defects.",
+      "image": "preview/rev-24-front.png"
+    },
+    {
+      "iteration": 25,
+      "score": 80,
+      "title": "More restrained feature scale and recessed teeth",
+      "notes": "Eye openings and smile width are closer to the reference; teeth are set behind the lip boundary. The complexion, brows and hair still look synthetic. This is not a 95-level likeness.",
+      "image": "preview/rev-25-front.png"
+    },
+    {
+      "iteration": 26,
+      "score": 78,
+      "title": "Directional daylight trial",
+      "notes": "Stronger directional lighting reveals depth but creates harsh facial shadows and emphasizes simplified planes. This is a lighting trial, not a likeness improvement.",
+      "image": "preview/rev-26-front.png"
+    },
+    {
+      "iteration": 27,
+      "score": 80,
+      "title": "Balanced daylight trial",
+      "notes": "Balanced directional and environment light is clearer than the harsh trial without washing out the character. Geometric likeness remains unchanged.",
+      "image": "preview/rev-27-front.png"
+    },
+    {
+      "iteration": 28,
+      "score": 79,
+      "title": "Soft portrait light trial",
+      "notes": "The softer light reduces harsh shadows but washes out facial structure. Balanced trial 27 is selected for subsequent work.",
+      "image": "preview/rev-28-front.png"
+    },
+    {
+      "iteration": 29,
+      "score": 80,
+      "title": "Natural eyebrow fibres and balanced daylight",
+      "notes": "Original eyebrow fibre density now complements the fine hair geometry. Balanced daylight is retained. The face is still visibly stylized; the thin upper-lip highlight and thick hair clumps remain active issues.",
+      "image": "preview/rev-29-front.png"
     }
   ],
   "requestedIterations": 20000,

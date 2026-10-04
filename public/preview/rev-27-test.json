@@ -1,0 +1,36 @@
+{
+  "iteration": 27,
+  "trial": {
+    "n": 27,
+    "name": "Balanced daylight",
+    "key": 2.1,
+    "fill": 0.65,
+    "hemi": 0.65,
+    "env": 0.35,
+    "rim": 2.5,
+    "exposure": 1.03,
+    "keyPos": [
+      -3.8,
+      10,
+      7
+    ]
+  },
+  "errors": [],
+  "stats": {
+    "triangles": 882160,
+    "drawCalls": 36,
+    "modelSource": "procedural",
+    "modelLoadMilliseconds": 12212.299999999814,
+    "geometries": 39,
+    "textures": 10,
+    "mode": "textured",
+    "activeView": "front",
+    "render": {
+      "frame": 44,
+      "calls": 38,
+      "triangles": 882164,
+      "points": 0,
+      "lines": 0
+    }
+  }
+}
