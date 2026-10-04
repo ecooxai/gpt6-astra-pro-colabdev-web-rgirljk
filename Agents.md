@@ -1,3 +1,20 @@
+# Active continuation — restored Colab, 2026-10-04
+
+Current branch: `gpt6-astra-pro-colabdev/likeness-polish-33`.
+The live Colab instance restored an earlier snapshot during this run. Revisions 33–37 were reconstructed from the recorded patches, and source plus replacement captures were pushed. Original captures for 33, 34 and 36 were lost; their journal entries explicitly have no image. Do not invent recovered images or count reconstruction as extra iterations.
+
+Current accepted source is revision 37, subjective visual score 80/100. A revision 38 direct-nostril-hole experiment was reviewed at 78/100 because it exposed long shading streaks. It has not been reapplied to this recovered source yet. The original runtime diagnostics showed those streaks remained without skin normal maps, shadows or specular reflections. Next: investigate facial tessellation/normals and natural eye geometry, then facial proportions and garment/footwear detail. The 95 target and 20,000 requested iterations are NOT achieved.
+
+Current temporary preview: https://landing-dairy-approach-remove.trycloudflare.com/?procedural=1
+Port 4317; detached services tracked in `.runtime/server-recovered.*` and `.runtime/tunnel-recovered.*`.
+Normal viewer still loads the old rev11 GLB. Use `?procedural=1`, or `scripts/capture.mjs` without `--prebuilt`, for the current authored source. Fresh GLB export, compression, validation, UI tests and persistent Pages redeployment remain required.
+
+New original `src/hair-groom.js` authors curved hair ribbons, fibre opacity and colour in code. No imported character, hair or photographic textures are used. `src/app.js` adds focused PCF shadows and `__APP__.inspectSurface(x,y)` for generated-geometry diagnostics. `geometry.js` retains semantic triangle ranges for low-part-count material batches.
+
+Push each important tested change to GitHub immediately; the prior Colab snapshot did not retain unpushed work. Do not stop/restart the instance or other projects. Completed webterm commands may retain idle shell sessions; close only confirmed completed sessions.
+
+---
+
 # Current continuation status — 2026-10-04
 
 The restored Colab workspace contained interrupted revisions 12–18, despite the earlier chat ending at 11. They were preserved, not discarded. Revisions 19–22 have now been built and visually reviewed. **Latest reviewed score: 79/100 at revision 22. The requested >95 target and 20,000 iterations are not complete.** Revision 23 is currently a hair-refinement trial and must be reviewed before scoring.

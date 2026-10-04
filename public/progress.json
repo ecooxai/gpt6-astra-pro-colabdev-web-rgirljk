@@ -1,7 +1,7 @@
 {
-  "iteration": 35,
+  "iteration": 37,
   "score": 80,
-  "note": "The smile width and cheek fullness are closer to the reference; the synthetic eyes and nasal rims still limit likeness.",
+  "note": "The corrected fibre material and less uniform ponytail waves are restored. Front, portrait, three-quarter, side and back captures have been regenerated after the Colab restore. This is recovery of an existing review, not a new iteration. Facial likeness remains below target.",
   "revisions": [
     {
       "iteration": 1,
@@ -467,8 +467,22 @@
       "iteration": 35,
       "score": 80,
       "title": "Broader reference-led smile and cheek volume",
-      "notes": "The smile width and cheek fullness are closer to the reference; the synthetic eyes and nasal rims still limit likeness. Original captures were lost in the Colab restore; this is the recovered source change, not an extra iteration.",
+      "notes": "The broader smile and fuller cheeks were recovered and the front and portrait captures regenerated after Colab restored an older snapshot.",
+      "image": "preview/rev-35-front.png"
+    },
+    {
+      "iteration": 36,
+      "score": 79,
+      "title": "Fine ribbon groom and focused shadows - rejected trial",
+      "notes": "The original trial produced glittering hair and harsh shadows. Original captures were lost in the Colab restore; this review is retained without inventing replacement evidence.",
       "image": null
+    },
+    {
+      "iteration": 37,
+      "score": 80,
+      "title": "Recovered matte fibres and irregular ponytail waves",
+      "notes": "The corrected fibre material and less uniform ponytail waves are restored. Front, portrait, three-quarter, side and back captures have been regenerated after the Colab restore. This is recovery of an existing review, not a new iteration. Facial likeness remains below target.",
+      "image": "preview/rev-37-front.png"
     }
   ],
   "requestedIterations": 20000,
