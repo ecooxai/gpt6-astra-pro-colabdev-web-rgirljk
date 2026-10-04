@@ -1,7 +1,7 @@
 {
-  "iteration": 17,
-  "score": 78,
-  "note": "The lower jaw tapers more naturally, irises fill the eyes and ponytails now lie over the shirt rather than disappearing behind it. Remaining weaknesses include synthetic hair highlights and the stiff collar and garment silhouette.",
+  "iteration": 22,
+  "score": 79,
+  "note": "Corrected inward-facing necktie loops, non-monotonic neckline mapping and skirt-waist intersections. Rounded sleeve caps now join the torso. Face and hair likeness remain below target.",
   "revisions": [
     {
       "iteration": 1,
@@ -343,6 +343,41 @@
       "title": "Narrower jaw and forward-draped ponytails",
       "notes": "The lower jaw tapers more naturally, irises fill the eyes and ponytails now lie over the shirt rather than disappearing behind it. Remaining weaknesses include synthetic hair highlights and the stiff collar and garment silhouette.",
       "image": "preview/rev-17-front.png"
+    },
+    {
+      "iteration": 18,
+      "score": 78,
+      "title": "Recovered garment trial",
+      "notes": "Recovered interrupted revision. The collar has visible gaps and stiff edges; hair remains synthetic. Target not met.",
+      "image": "preview/rev-18-front.png"
+    },
+    {
+      "iteration": 19,
+      "score": 77,
+      "title": "Facial contour trial \u2014 smile regression",
+      "notes": "Nose and philtrum are softer, but the changed mouth corners read as a grimace. The eyelids still have conspicuous socket transitions. This is a scored trial, not an accepted improvement.",
+      "image": "preview/rev-19-front.png"
+    },
+    {
+      "iteration": 20,
+      "score": 78,
+      "title": "Integrated eye surfaces and revised smile",
+      "notes": "Eye surfaces blend more gently into the cheeks and nose. The mouth still looks synthetic, and the reference has more compact lower-face proportions. Collar and hair remain the next major corrections.",
+      "image": "preview/rev-20-front.png"
+    },
+    {
+      "iteration": 21,
+      "score": 78,
+      "title": "Open collar and chest continuity trial",
+      "notes": "The neckline no longer exposes a background gap, but close inspection found a folded-over upper shirt surface, inward-facing tie loops and a ragged tuck transition. These are being corrected rather than scored as finished.",
+      "image": "preview/rev-21-front.png"
+    },
+    {
+      "iteration": 22,
+      "score": 79,
+      "title": "Connected neckline, visible tie loops and clean tuck",
+      "notes": "Corrected inward-facing necktie loops, non-monotonic neckline mapping and skirt-waist intersections. Rounded sleeve caps now join the torso. Face and hair likeness remain below target.",
+      "image": "preview/rev-22-front.png"
     }
   ],
   "requestedIterations": 20000,

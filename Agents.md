@@ -1,3 +1,23 @@
+# Current continuation status — 2026-10-04
+
+The restored Colab workspace contained interrupted revisions 12–18, despite the earlier chat ending at 11. They were preserved, not discarded. Revisions 19–22 have now been built and visually reviewed. **Latest reviewed score: 79/100 at revision 22. The requested >95 target and 20,000 iterations are not complete.** Revision 23 is currently a hair-refinement trial and must be reviewed before scoring.
+
+Project: `/home/dev/project/3d/gpt6_astra_pro_colabdev_web_rgirljk`.
+Branch: `gpt6-astra-pro-colabdev/likeness-refinement`.
+Build: `/build/gpt6_astra_pro_colabdev_web_rgirljk`.
+Live preview: `https://str-birth-rest-voice.trycloudflare.com/?procedural=1`.
+The published GitHub Pages GLB is still revision 11. Use `?procedural=1` for the current studio, or `?capture=1` for screenshot tests. Do not mistake the old prebuilt GLB for the changed source.
+
+Use the existing Colab session. It was restarted and restored successfully. Server port 4317 and tunnel are detached processes; current logs/PIDs are `.runtime/server-resume.*` and `.runtime/tunnel-resume.*`. Do not stop other projects. Tool task used in this continuation: `Rgirljk likeness refinement`.
+
+Recent work: face skin has genuine orbital and oral openings, authored with poly2tri constrained triangulation; original face/hair are now separate modules. Revisions 19–20 refined eyes, nose, lips and teeth. A smile trial regressed to 77 and was explicitly recorded. Revisions 21–22 repaired collar/neck continuity, inward-facing tie loops, folded-over neckline parameterization, sleeve caps and a ragged tuck boundary. Revision 22 is 79, not 95.
+
+Current geometry is about 956,000 triangles before pending hair optimization, not the old 565,000-triangle export. Face likeness, hair shape/shading, and realistic cloth remain unfinished. Do not raise a score merely because a render or validation succeeded.
+
+Before publishing, export the changed procedural model, compress, rebuild, validate, compare `--prebuilt` captures, run UI tests, then update the ZIP and gh-pages branch. `scripts/capture.mjs N front,face,three,back` renders the original source; `scripts/review.py N SCORE TITLE NOTES` updates the live journal. No original-photo analysis code, image generation, imported character meshes or photographic textures have been used. The manually cropped face PNG in `.runtime` is only a magnified visual reference, not a model texture.
+
+---
+## Earlier handoff (historical)
 # Agent handoff — RGIRLJK procedural web character
 
 ## Status and non-negotiable honesty

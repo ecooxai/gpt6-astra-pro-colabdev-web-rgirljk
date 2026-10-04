@@ -2,7 +2,7 @@ import * as T from 'three';
 import {makeHand} from './hands.js';
 import {surface,ball,box,tube,sweep,loft,sample} from './geometry.js';
 export function makeLimbs(root,M){
-for(let s of [-1,1]){const sh=[s*.65+.1,5.94,-.015],el=[s*.79+.07,4.89,-.086],cuff=[s*.738+.054,4.72,-.09];sweep('Soft sleeve',[sh,[s*.817+.087,5.71,-.017],[s*.851+.08,5.34,-.014],el,cuff],[[0,.211],[.28,.203],[.64,.173],[.84,.155],[1,.153]],M.shirt,root,90,48,1.04);
+for(let s of [-1,1]){const sh=[s*.55+.1,6.065,-.015],el=[s*.79+.07,4.89,-.086],cuff=[s*.738+.054,4.72,-.09];sweep('Soft sleeve',[sh,[s*.71+.095,5.94,-.016],[s*.817+.087,5.71,-.017],[s*.851+.08,5.34,-.014],el,cuff],[[0,.015],[.12,.197],[.27,.207],[.64,.173],[.84,.155],[1,.153]],M.shirt,root,90,48,1.04);
 sweep('Rolled cuff cotton',[[cuff[0],4.65,-.095],[cuff[0]+s*.012,4.73,-.10],[cuff[0]+s*.027,4.85,-.096]],[[0,.166],[.3,.177],[.7,.174],[1,.161]],M.shirt,root,32,48);
 sweep('Cuff edge piping',[[cuff[0]+s*.015,4.805,-.096],[cuff[0]+s*.018,4.824,-.096]],[[0,.177],[1,.178]],M.seam,root,6,48);
 const wrist=[s*.37+.01,4.18,-.472];makeHand(root,M,wrist,s,[[cuff[0],4.69,-.102],[s*.66+.025,4.43,-.225],wrist]);

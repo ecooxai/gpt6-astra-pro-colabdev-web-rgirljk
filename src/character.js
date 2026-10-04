@@ -5,7 +5,7 @@ import {materials} from './materials.js';
 import {makeHead} from './head.js';
 import {makeLimbs,makeBackpack} from './details.js';
 export function buildCharacter(){const root=new T.Group(),M=materials();root.name='Original procedural campus portrait';
-loft('Anatomical neck',[[5.94,.11,0,.22,.19],[6.17,.13,.01,.196,.174],[6.39,.21,.066,.172,.16],[6.59,.263,.075,.24,.18]],M.skin,root,56,60);
+loft('Anatomical neck',[[5.67,.105,.005,.48,.255],[5.85,.116,.008,.337,.254],[6.03,.133,.015,.239,.208],[6.17,.151,.03,.190,.176],[6.36,.218,.102,.178,.161],[6.56,.254,.117,.226,.178]],M.skin,root,56,60);
 makeGarments(root,M);
 makeLimbs(root,M);makeBackpack(root,M);makeHead(root,M);
 let result=bake(root);result.userData={provenance:'All geometry, hair fibres and texture patterns authored from scratch in JavaScript. Reference image is never sampled by the model.',revision:1};return result;}
