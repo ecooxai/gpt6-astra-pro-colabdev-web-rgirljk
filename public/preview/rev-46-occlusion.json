@@ -1,0 +1,76 @@
+{
+  "samples": 24,
+  "radius": 0.18,
+  "strength": 0.6,
+  "region": "head",
+  "vertices": 67111,
+  "rays": 1610664,
+  "occludedRays": 813102,
+  "sourceTriangles": 608570,
+  "durationMilliseconds": 18981.799999999814,
+  "materials": [
+    {
+      "material": "Warm skin • sculpted anatomy",
+      "vertices": 1881,
+      "averageVisibility": 0.7212327877627817,
+      "minVisibility": 0.02937031701675774,
+      "mode": "subtle vertex contact shading"
+    },
+    {
+      "material": "White woven cotton",
+      "vertices": 3214,
+      "averageVisibility": 0.8699743145666111,
+      "minVisibility": 0.02512572278152525,
+      "mode": "subtle vertex contact shading"
+    },
+    {
+      "material": "Face • vertex-painted blush",
+      "vertices": 33568,
+      "averageVisibility": 0.6143403386377864,
+      "minVisibility": 0.005661480462558988,
+      "mode": "UV ambient-occlusion atlas"
+    },
+    {
+      "material": "Moist warm sclera",
+      "vertices": 5326,
+      "averageVisibility": 0.79224175803498,
+      "minVisibility": 0.00793130114370022,
+      "mode": "subtle vertex contact shading"
+    },
+    {
+      "material": "Convex ivory enamel crowns",
+      "vertices": 3800,
+      "averageVisibility": 0.4961165044462508,
+      "minVisibility": 0.04097053309540932,
+      "mode": "subtle vertex contact shading"
+    },
+    {
+      "material": "Original translucent-toned ear skin",
+      "vertices": 8009,
+      "averageVisibility": 0.6076601403433105,
+      "minVisibility": 0.010641094453645028,
+      "mode": "subtle vertex contact shading"
+    },
+    {
+      "material": "Soft pinna cartilage",
+      "vertices": 1652,
+      "averageVisibility": 0.43636583608657337,
+      "minVisibility": 0.007280308038826511,
+      "mode": "subtle vertex contact shading"
+    },
+    {
+      "material": "Original translucent-toned ear skin",
+      "vertices": 8009,
+      "averageVisibility": 0.4781434619978202,
+      "minVisibility": 0.021495171145187175,
+      "mode": "subtle vertex contact shading"
+    },
+    {
+      "material": "Soft pinna cartilage",
+      "vertices": 1652,
+      "averageVisibility": 0.3053794413239884,
+      "minVisibility": 0.0069404748689407825,
+      "mode": "subtle vertex contact shading"
+    }
+  ]
+}

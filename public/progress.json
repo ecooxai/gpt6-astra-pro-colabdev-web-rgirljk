@@ -1,7 +1,7 @@
 {
-  "iteration": 45,
+  "iteration": 46,
   "score": 83,
-  "note": "Replaced the overlapping primitive ears with continuous front and rear pinna surfaces and finer cartilage folds. The geometry holds up in front, side and back views, but ear shading and attachment still need refinement. Overall likeness score is unchanged.",
+  "note": "The face now has an original ambient-occlusion atlas computed from the authored 3D surfaces; eyes, ears and teeth receive restrained contact shading. The bake tested 1,610,664 rays, not additional artistic iterations. It improves contact depth but does not yet materially close the likeness gap.",
   "revisions": [
     {
       "iteration": 1,
@@ -539,6 +539,13 @@
       "title": "Continuous concave ear anatomy",
       "notes": "Replaced the overlapping primitive ears with continuous front and rear pinna surfaces and finer cartilage folds. The geometry holds up in front, side and back views, but ear shading and attachment still need refinement. Overall likeness score is unchanged.",
       "image": "preview/rev-45-front.png"
+    },
+    {
+      "iteration": 46,
+      "score": 83,
+      "title": "Portable geometry-baked contact shading",
+      "notes": "The face now has an original ambient-occlusion atlas computed from the authored 3D surfaces; eyes, ears and teeth receive restrained contact shading. The bake tested 1,610,664 rays, not additional artistic iterations. It improves contact depth but does not yet materially close the likeness gap.",
+      "image": "preview/rev-46-front.png"
     }
   ],
   "requestedIterations": 20000,
