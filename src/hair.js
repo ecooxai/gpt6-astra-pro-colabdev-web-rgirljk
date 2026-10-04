@@ -6,7 +6,7 @@ let seed=72345;const R=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return
 const clamp=T.MathUtils.clamp;
 export function makeHair(h,M){
  seed=72345;
- M.hair.color.set(0xadb6c8);M.hair.roughness=.45;M.hair.clearcoat=.055;M.hair.clearcoatRoughness=.36;M.hair.specularIntensity=.35;M.hair.anisotropy=.50;M.hair.anisotropyRotation=Math.PI/2;
+ M.hair.color.set(0xadb6c8);M.hair.roughness=.36;M.hair.clearcoat=.055;M.hair.clearcoatRoughness=.36;M.hair.specularIntensity=.60;M.hair.anisotropy=.50;M.hair.anisotropyRotation=Math.PI/2;
  M.hairLine.color.set(0x15161a);M.hairLine.roughness=.59;M.hairLine.specularIntensity=.40;
  M.hairLight.color.set(0x242226);M.hairLight.roughness=.58;M.hairLight.specularIntensity=.42;
  const fibreMats=[M.hairLine,M.hairLine,M.hairLight,M.hair.clone()];fibreMats[3].name='Soft brown hair fibres';fibreMats[3].color.set(0x9b8d89);fibreMats[3].roughness=.57;
@@ -14,7 +14,7 @@ export function makeHair(h,M){
   const p=geo.attributes.position;for(let j=0;j<=segments;j++){const v=j/segments,c=curve.getPointAt(v),taper=Math.pow(Math.sin(Math.PI*(.06+.94*v)),.38)*Math.pow(1-v,.20);for(let k=0;k<=3;k++){const i=j*4+k;p.setXYZ(i,c.x+(p.getX(i)-c.x)*taper,c.y+(p.getY(i)-c.y)*taper,c.z+(p.getZ(i)-c.z)*taper);}}
   geo.computeVertexNormals();const m=new T.Mesh(geo,mat);m.name=name;m.castShadow=true;h.add(m);return m;
  }
- function endY(a){let f=Math.cos(a);if(f<=0)return -.355-.035*Math.sin(a)**2;return -.21+.425*Math.pow(f,1.8)+.043*Math.sin(a)*f;}
+ function endY(a){let f=Math.cos(a);if(f<=0)return -.355-.035*Math.sin(a)**2;return .27-.49*Math.pow(Math.abs(Math.sin(a)),5)+.028*Math.sin(a);}
  function scalp(a,v){const y=mix(.608,endY(a),v);let [rx,rz,rb]=sample(headRows,Math.min(.579,y));if(y>.54){let q=Math.sqrt(Math.max(.000001,(.608-y)/.068));rx=.201*q;rz=.202*q;rb=.193*q;}else{rx+=.027;rz+=.033;rb+=.028;}
   const wave=.0015*Math.sin(a*13+v*11);rx+=wave;return[rx*Math.sin(a)+.035*Math.pow(1-v,3),y,Math.cos(a)>=0?rz*Math.pow(Math.max(0,Math.cos(a)),.80):rb*Math.cos(a)];}
  surface('Full fitted scalp and nape',128,96,(u,v)=>scalp(u*Math.PI*2,v),M.hair,h);
@@ -32,7 +32,7 @@ export function makeHair(h,M){
 
  // A continuous swept bang sheet avoids the previous conspicuous pointed clumps.
  function hairFront(x,y){let [rx,rz]=sample(headRows,Math.min(.579,y));if(y>.54){const q=Math.sqrt(Math.max(.00001,(.608-y)/.068));rx=.201*q;rz=.202*q;}else{rx+=.026;rz+=.033;}return rz*Math.pow(Math.max(.003,1-(x/rx)**2),.40);}
- function fringe(u,v){const x0=.26*u,y0=.565-.100*u,xe=-.339+.525*u,ye=.103+.13*u+.003*Math.sin(u*83)+.0015*Math.sin(u*227),t=v,iv=1-t;
+ function fringe(u,v){const x0=.26*u,y0=.565-.100*u,xe=-.339+.525*u,ye=.086+.13*u+.003*Math.sin(u*83)+.0015*Math.sin(u*227),t=v,iv=1-t;
   const x=iv**3*x0+3*iv*iv*t*(x0-.047)+3*iv*t*t*(xe+.098)+t**3*xe;
   const y=iv**3*y0+3*iv*iv*t*(y0-.135)+3*iv*t*t*(ye+.042)+t**3*ye;
   const z=hairFront(x,y)+.008+.0017*Math.sin(u*91+v*12)+.0008*Math.sin(u*177-v*7);return[x,y,z];}
@@ -43,13 +43,13 @@ export function makeHair(h,M){
   lock('Loose face framing strand',[[s*.346,.032,.234],[s*.337,-.175,.262],[s*.317,-.399,.183],[s*.379,-.576,.132]],.010,.006,7,false);
   // Hair tie is small and partly obscured by the gathered hair.
   const tie=new T.Mesh(new T.TorusGeometry(.081,.010,8,32),M.webbing);tie.name='Low ponytail elastic';tie.position.set(s*.367,-.286,-.12);tie.rotation.x=Math.PI/2;h.add(tie);
-  const core=new T.CatmullRomCurve3([[s*.358,-.258,-.121],[s*.457,-.431,-.151],[s*.486,-.753,-.098],[s*.429,-1.045,.060]].map(V));
+  const core=new T.CatmullRomCurve3([[s*.358,-.258,-.08],[s*.457,-.431,.075],[s*.486,-.753,.32],[s*.429,-1.19,.43]].map(V));
   surface('Gravity-shaped ponytail core',48,64,(u,v)=>{const p=core.getPoint(v),a=u*Math.PI*2,r=sample([[0,.075],[.20,.139],[.45,.123],[.67,.099],[.85,.066],[1,.001]],v)[0];p.x+=r*Math.sin(a);p.z+=r*.68*Math.cos(a);return p.toArray();},M.hair,h);
-  for(let j=0;j<23;j++){const a=j/23*Math.PI*2,ox=Math.sin(a),oz=Math.cos(a),len=1.035+R()*.340,endX=s*(.40+.085*Math.sin(a*2+1)),endZ=.008+.10*oz+R()*.035;
-   const pts=[[s*.36+.06*ox,-.274,-.12+.05*oz],[s*.46+.137*ox,-.48,-.125+.10*oz],[s*(.48+.018*Math.sin(j))+.114*ox,-.80,-.073+.106*oz],[endX,len*-.91,endZ+.025],[endX-s*.035,-len,endZ]];
+  for(let j=0;j<23;j++){const a=j/23*Math.PI*2,ox=Math.sin(a),oz=Math.cos(a),len=1.035+R()*.340,endX=s*(.40+.085*Math.sin(a*2+1)),endZ=.41+.10*oz+R()*.035;
+   const pts=[[s*.36+.06*ox,-.274,-.08+.05*oz],[s*.46+.137*ox,-.48,.08+.10*oz],[s*(.48+.018*Math.sin(j))+.114*ox,-.80,.34+.106*oz],[endX,len*-.91,endZ+.025],[endX-s*.035,-len,endZ]];
    lock('Soft wavy ponytail layer '+j,pts,.028+R()*.023,.014+R()*.01,13,false);
   }
-  for(let j=0;j<65;j++){const a=R()*6.283,ox=Math.sin(a),oz=Math.cos(a),len=1.02+R()*.36,pts=[[s*.364+.072*ox,-.281,-.12+.067*oz],[s*.49+.146*ox,-.57,-.074+.126*oz],[s*.491+.125*ox,-.89,.020+.103*oz],[s*.415+.079*ox,-len,.048+.057*oz]];
+  for(let j=0;j<65;j++){const a=R()*6.283,ox=Math.sin(a),oz=Math.cos(a),len=1.02+R()*.36,pts=[[s*.364+.072*ox,-.281,-.08+.067*oz],[s*.49+.146*ox,-.57,.15+.126*oz],[s*.491+.125*ox,-.89,.36+.103*oz],[s*.415+.079*ox,-len,.46+.057*oz]];
    strand('Fine ponytail silhouette flyaway',pts,.00028+R()*.00022,fibreMats[j%11===0?2:0],30);
   }
  }

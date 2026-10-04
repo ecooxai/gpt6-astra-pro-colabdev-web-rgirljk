@@ -1,7 +1,7 @@
 {
-  "iteration": 16,
-  "score": 77,
-  "note": "The head tilt and lateral placement are closer, and the eyes are less protruding. Enlarged reference review shows the jaw is still too broad, the irises too small, and ponytail tips incorrectly sit behind the blouse.",
+  "iteration": 17,
+  "score": 78,
+  "note": "The lower jaw tapers more naturally, irises fill the eyes and ponytails now lie over the shirt rather than disappearing behind it. Remaining weaknesses include synthetic hair highlights and the stiff collar and garment silhouette.",
   "revisions": [
     {
       "iteration": 1,
@@ -336,6 +336,13 @@
       "title": "Embedded eyes and corrected head placement",
       "notes": "The head tilt and lateral placement are closer, and the eyes are less protruding. Enlarged reference review shows the jaw is still too broad, the irises too small, and ponytail tips incorrectly sit behind the blouse.",
       "image": "preview/rev-16-front.png"
+    },
+    {
+      "iteration": 17,
+      "score": 78,
+      "title": "Narrower jaw and forward-draped ponytails",
+      "notes": "The lower jaw tapers more naturally, irises fill the eyes and ponytails now lie over the shirt rather than disappearing behind it. Remaining weaknesses include synthetic hair highlights and the stiff collar and garment silhouette.",
+      "image": "preview/rev-17-front.png"
     }
   ],
   "requestedIterations": 20000,
