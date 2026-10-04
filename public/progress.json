@@ -1,7 +1,7 @@
 {
-  "iteration": 32,
+  "iteration": 33,
   "score": 79,
-  "note": "Recessed nasal openings are preserved, but bright rims, synthetic eye contours and heavy hair clumps remain. Recovered front, portrait and profile views were reviewed; the requested target is not reached.",
+  "note": "Reduced eye protrusion and lower tooth exposure. Nasal highlights and synthetic expression remained unresolved.",
   "revisions": [
     {
       "iteration": 1,
@@ -448,6 +448,13 @@
       "title": "Recovered nasal-surface correction",
       "notes": "Recessed nasal openings are preserved, but bright rims, synthetic eye contours and heavy hair clumps remain. Recovered front, portrait and profile views were reviewed; the requested target is not reached.",
       "image": "preview/rev-32-front.png"
+    },
+    {
+      "iteration": 33,
+      "score": 79,
+      "title": "Softer eye aperture and restrained smile",
+      "notes": "Reduced eye protrusion and lower tooth exposure. Nasal highlights and synthetic expression remained unresolved. Original captures were lost in the Colab restore; this is the recovered source change, not an extra iteration.",
+      "image": null
     }
   ],
   "requestedIterations": 20000,
