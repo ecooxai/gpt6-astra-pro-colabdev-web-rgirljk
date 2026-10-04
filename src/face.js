@@ -3,7 +3,7 @@
  */
 import * as T from 'three';
 import poly2tri from 'poly2tri';
-import {makeBrowMaterial} from './brows.js';
+import {eyeContour,makeEyeGeometry} from './eyes.js';
 import {surface,ball,box,tube,sample,mix,V} from './geometry.js';
 export const headRows=[[-.448,.008,.03,.035],[-.434,.085,.174,.110],[-.408,.151,.234,.151],[-.350,.233,.281,.194],[-.267,.290,.300,.250],[-.14,.349,.316,.283],[.035,.384,.326,.304],[.18,.374,.326,.31],[.34,.356,.318,.30],[.46,.296,.274,.255],[.54,.173,.17,.164],[.58,.003,.004,.004]];
 const G=(x,y,cx,cy,sx,sy)=>Math.exp(-(((x-cx)/sx)**2+((y-cy)/sy)**2));
@@ -35,9 +35,7 @@ function skinColor(x,y){const c=new T.Color(0xe5b6a2);
  const n=Math.sin(x*173+y*51)*Math.sin(y*181-x*87)+.5*Math.sin(x*481+y*253);
  c.multiplyScalar(1+n*.004);return c.toArray();}
 function skull(a,y){const [rx,rz,back]=sample(headRows,y),x=rx*Math.sin(a);return[x,y,Math.cos(a)>=0?faceZ(x,y):back*Math.cos(a)];}
-const EY=.084,EX=.153,ER=.098,EZ=.220,EW=.067;
-function eyePoint(s,a,outer=false){const t=Math.cos(a),q=Math.sin(a),w=outer?.098:EW;
- return[s*EX+w*t,EY+s*t*.008+(q>0?(outer?.050:.028):(outer?.036:.015))*q];}
+const eyePoint=eyeContour;
 const MW=.140;
 function mouthPoint(a,outer=false){const t=Math.cos(a),q=Math.sin(a),w=1-t*t;
  const top=-.208-.002*t*t,bottom=-.265+.055*t*t;
@@ -86,11 +84,6 @@ function buildSkin(h,M){
  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(points,3));g.setAttribute('normal',new T.Float32BufferAttribute(normal,3));g.setAttribute('color',new T.Float32BufferAttribute(colors,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.setIndex(idx);
  const mesh=new T.Mesh(g,M.face);mesh.name='Continuous anatomical head with refined facial tessellation';mesh.castShadow=mesh.receiveShadow=true;h.add(mesh);
 }
-function eyeSphereZ(s,x,y){
- const t=(x-s*EX)/EW,dy=y-EY;
- return faceZ(x,y)+.003+.011*Math.max(0,1-t*t)-.9*dy*dy;
-}
-
 function frontRing(...args){
  const m=surface(...args),g=m.geometry,a=g.index.array;
  for(let i=0;i<a.length;i+=3){const t=a[i+1];a[i+1]=a[i+2];a[i+2]=t;}
@@ -115,38 +108,6 @@ function frontRing(...args){
  return m;
 }
 
-function makeEyes(h,M){
- const browMat=makeBrowMaterial();
- const irisMat=new T.MeshPhysicalMaterial({color:0xffffff,vertexColors:true,roughness:.31,clearcoat:.8,clearcoatRoughness:.065,specularIntensity:.5});irisMat.name='Procedural radial brown iris fibres';
- const scleraMat=new T.MeshPhysicalMaterial({color:0xe8dfd8,vertexColors:true,roughness:.25,clearcoat:.55,clearcoatRoughness:.07,specularIntensity:.5});scleraMat.name='Warm sclera and moist ocular surface';
- for(const s of [-1,1]){
-  frontRing('Orbital tissue and anatomical eyelid transition',96,18,(u,v)=>{const a=u*Math.PI*2,inner=eyePoint(s,a),outer=eyePoint(s,a,true),x=mix(inner[0],outer[0],v),y=mix(inner[1],outer[1],v),zi=eyeSphereZ(s,...inner)+.0018,zo=faceZ(...outer),blend=v*v*(3-2*v);let z=faceZ(x,y)+(zi-faceZ(...inner))*Math.pow(1-v,2)+Math.sin(v*Math.PI)*.0005;
- const upper=Math.max(0,Math.sin(a)),crease=Math.exp(-(((v-.34)/.12)**2))*upper;z-=.0012*crease;
- const c=new T.Color().fromArray(skinColor(x,y));c.lerp(new T.Color(0xae7569),.12*crease);c.lerp(new T.Color(0xc28c7d),.20*Math.exp(-v*35));return[x,y,z,...c.toArray()];},M.face,h);
-  surface('Inset curved sclera',80,24,(u,v)=>{const t=u*2-1,x=s*EX+EW*t,w=Math.sqrt(Math.max(0,1-t*t)),y=EY+s*t*.008+mix(-.015*w,.028*w,v),edge=Math.pow(Math.abs(t),6),c=new T.Color(0xeae2d9).lerp(new T.Color(0xc68e84),edge*.40);c.multiplyScalar(.76+.19*Math.sin(Math.PI*v));return[x,y,eyeSphereZ(s,x,y),...c.toArray()];},scleraMat,h);
-  const ix=s*EX-.003,iy=EY+.004,ir=.035;
-  frontRing('Iris limbus and intricate radial fibres',128,26,(u,v)=>{const a=u*Math.PI*2,r=ir*v,x=ix+Math.cos(a)*r;let y=iy+Math.sin(a)*r;const tx=(x-s*EX)/EW,w=Math.sqrt(Math.max(0,1-tx*tx));y=clamp(y,EY+s*tx*.008-.015*w+.0007,EY+s*tx*.008+.028*w-.0007);
-   const c=new T.Color(0x251c18),striations=.12*Math.sin(a*127+v*4)+.09*Math.sin(a*251-v*17)+.05*Math.sin(a*53+v*36);
-   c.lerp(new T.Color(0x58402e),(.18+striations*.7)*Math.sin(v*Math.PI));c.lerp(new T.Color(0x141719),Math.pow(v,15)*.85);return[x,y,eyeSphereZ(s,x,y)+.0007,...c.toArray()];},irisMat,h);
-  frontRing('Pupil depth',64,8,(u,v)=>{const a=u*Math.PI*2,x=ix+Math.cos(a)*.0155*v,y=iy+Math.sin(a)*.0155*v;return[x,y,eyeSphereZ(s,x,y)+.001];},M.pupil,h);
-  ball('Moist corneal catchlight',[ix-.010,iy+.012,eyeSphereZ(s,ix-.010,iy+.012)+.0017],[.0038,.0030,.0010],M.glint,h,16);
-  for(const upper of [true,false]){
-   const pts=[];for(let i=0;i<=48;i++){const a=(upper?0:Math.PI)+i/48*Math.PI,[x,y]=eyePoint(s,a);pts.push([x,y,eyeSphereZ(s,x,y)+.002]);}
-   tube(upper?'Fine upper eyelash root line':'Subtle lower tear film',pts,upper?.0010:.00055,upper?M.lash:M.lid,h,56,5);
-  }
-  for(let j=0;j<24;j++){
-   const t=-.84+j/23*1.69,x=s*EX+t*EW,y=EY+s*t*.008+.028*Math.sqrt(1-t*t),z=eyeSphereZ(s,x,y)+.002,r=.00032+.00010*(j%3),l=.003+ .004*(.5+.5*s*t);
-   tube('Individual tapered upper eyelash',[[x,y,z],[x+s*.0015,y+l*.55,z+.003],[x+s*.003,y+l,z+.004]],r,M.lash,h,5,3);
-  }
-  ball('Lacrimal caruncle',[s*(EX-EW+.007),EY-.006,eyeSphereZ(s,s*(EX-EW+.007),EY-.006)+.001],[.005,.003,.002],M.lipTop,h,16);
-  const brow=surface('Natural eyebrow fibre density',72,10,(u,v)=>{const t=u*2-1,x=s*EX+t*.098,y=.174+.019*(1-t*t)-s*t*.006+(v-.5)*.034*(1-.45*Math.abs(t));return[x,y,faceZ(x,y)+.0033];},browMat,h);
-  if(s<0){const uv=brow.geometry.attributes.uv;for(let k=0;k<uv.count;k++)uv.setX(k,1-uv.getX(k));}
-  // Eyebrows are numerous short hairs, not a solid painted block.
-  for(let j=0;j<76;j++){const t=j/75*2-1,x=s*EX+t*.098,base=.171+.019*(1-t*t)-s*t*.006,scatter=.004*Math.sin(j*2.31),y=base+scatter,z=faceZ(x,y)+.001;
-   const l=.006+.006*(1-Math.abs(t));tube('Individual eyebrow hair',[[x,y,z],[x+s*.004,y+l*.6,faceZ(x+s*.004,y+l*.6)+.0015],[x+s*.008,y+l,faceZ(x+s*.008,y+l)+.001]],.00043*(1-.5*Math.abs(t)),M.lash,h,5,3);
-  }
- }
-}
 function makeMouth(h,M){
  const lipMat=new T.MeshPhysicalMaterial({color:0xffffff,vertexColors:true,roughness:.71,clearcoat:0,clearcoatRoughness:.6,specularIntensity:.05});lipMat.name='Integrated rose vermilion with soft skin boundary';
  // Oral cavity is a real recessed volume behind the open skin topology.
@@ -190,4 +151,4 @@ function makeEarsAndNose(h,M){
  // A small natural cheek mark observed visually; never a photographic texture.
  for(const [x,y,r] of [[-.243,-.085,.0025],[.178,-.063,.0024],[-.026,.043,.0022]])ball('Subtle facial mark',[x,y,faceZ(x,y)+.0005],[r,r*.86,.0006],mark,h,12);
 }
-export function makeFace(h,M){buildSkin(h,M);makeEyes(h,M);makeMouth(h,M);makeEarsAndNose(h,M);}
+export function makeFace(h,M){buildSkin(h,M);makeEyeGeometry(h,M,{faceZ,skinColor,frontRing});makeMouth(h,M);makeEarsAndNose(h,M);}

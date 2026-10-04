@@ -1,7 +1,7 @@
 {
-  "iteration": 39,
-  "score": 81,
-  "note": "Rebuilt the facial sampling around the eyes, mouth and direct nasal openings, with explicit analytical surface normals. The long nasal shading streaks are removed in front and three-quarter views. The remaining likeness gap is concentrated in the eye construction, smile and skin detail.",
+  "iteration": 40,
+  "score": 78,
+  "note": "Complete curved eyeballs and unclamped irises replace the former flat apertures. The first placement is too far forward and protrudes through the lower eyelids, so this trial is a regression rather than a finished improvement.",
   "revisions": [
     {
       "iteration": 1,
@@ -497,6 +497,13 @@
       "title": "Continuous facial surface without nasal streaks",
       "notes": "Rebuilt the facial sampling around the eyes, mouth and direct nasal openings, with explicit analytical surface normals. The long nasal shading streaks are removed in front and three-quarter views. The remaining likeness gap is concentrated in the eye construction, smile and skin detail.",
       "image": "preview/rev-39-front.png"
+    },
+    {
+      "iteration": 40,
+      "score": 78,
+      "title": "Inset-eye assembly trial - lower-lid intersection",
+      "notes": "Complete curved eyeballs and unclamped irises replace the former flat apertures. The first placement is too far forward and protrudes through the lower eyelids, so this trial is a regression rather than a finished improvement.",
+      "image": "preview/rev-40-front.png"
     }
   ],
   "requestedIterations": 20000,
