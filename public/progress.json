@@ -1,7 +1,7 @@
 {
-  "iteration": 34,
-  "score": 79,
-  "note": "Unified skin coordinates across eye and nose patches. The nasal highlights remained; diagnostic trials did not count as a visual improvement.",
+  "iteration": 35,
+  "score": 80,
+  "note": "The smile width and cheek fullness are closer to the reference; the synthetic eyes and nasal rims still limit likeness.",
   "revisions": [
     {
       "iteration": 1,
@@ -461,6 +461,13 @@
       "score": 79,
       "title": "Continuous facial texture coordinates",
       "notes": "Unified skin coordinates across eye and nose patches. The nasal highlights remained; diagnostic trials did not count as a visual improvement. Original captures were lost in the Colab restore; this is the recovered source change, not an extra iteration.",
+      "image": null
+    },
+    {
+      "iteration": 35,
+      "score": 80,
+      "title": "Broader reference-led smile and cheek volume",
+      "notes": "The smile width and cheek fullness are closer to the reference; the synthetic eyes and nasal rims still limit likeness. Original captures were lost in the Colab restore; this is the recovered source change, not an extra iteration.",
       "image": null
     }
   ],
