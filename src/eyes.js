@@ -9,21 +9,22 @@ export function eyeContour(s,a,outer=false){
  return[s*EX+width*t,EY+s*t*.008+arch];
 }
 function ocularZ(s,x,y,faceZ){
- const cx=s*EX,cz=faceZ(cx,EY)+.012-RZ;
+ const cx=s*EX,cz=faceZ(cx,EY)-.006-RZ;
  return cz+RZ*Math.sqrt(Math.max(.000001,1-((x-cx)/RX)**2-((y-EY)/RY)**2));
 }
 export function makeEyeGeometry(h,M,{faceZ,skinColor,frontRing}){
  if(typeof faceZ!=='function'||typeof skinColor!=='function'||typeof frontRing!=='function')throw new Error('Eye assembly requires the authored facial surface functions.');
- const sclera=new T.MeshPhysicalMaterial({color:0xe5ddd4,roughness:.28,clearcoat:.86,clearcoatRoughness:.055,specularIntensity:.46,ior:1.38});sclera.name='Moist warm sclera';
- const iris=new T.MeshPhysicalMaterial({color:0xffffff,vertexColors:true,roughness:.34,clearcoat:.88,clearcoatRoughness:.055,specularIntensity:.52});iris.name='Original radial brown iris fibres';
+ const sclera=new T.MeshPhysicalMaterial({color:0xe5ddd4,roughness:.28,clearcoat:.60,clearcoatRoughness:.085,specularIntensity:.46,ior:1.38});sclera.name='Moist warm sclera';
+ const iris=new T.MeshPhysicalMaterial({color:0xffffff,vertexColors:true,roughness:.34,clearcoat:.55,clearcoatRoughness:.085,specularIntensity:.52});iris.name='Original radial brown iris fibres';
  const margin=new T.MeshPhysicalMaterial({color:0xb98a79,roughness:.46,specularIntensity:.24});margin.name='Subtle moist eyelid margin';
  const browMat=makeBrowMaterial();
  for(const s of [-1,1]){
-  const cz=faceZ(s*EX,EY)+.012-RZ;
-  ball('Complete inset eyeball',[s*EX,EY,cz],[RX,RY,RZ],sclera,h,64);
+  const cz=faceZ(s*EX,EY)-.006-RZ;
+  const globe=new T.Mesh(new T.SphereGeometry(1,64,40),sclera);globe.name='Complete inset eyeball';globe.position.set(s*EX,EY,cz);globe.scale.set(RX,RY,RZ);globe.castShadow=globe.receiveShadow=true;h.add(globe);
   frontRing('Orbital tissue and naturally curved eyelids',96,24,(u,v)=>{
    const a=u*Math.PI*2,inner=eyeContour(s,a),outer=eyeContour(s,a,true),x=mix(inner[0],outer[0],v),y=mix(inner[1],outer[1],v),zi=ocularZ(s,...inner,faceZ)+.0018;
    let z=faceZ(x,y)+(zi-faceZ(...inner))*(1-v)**2+.0011*Math.sin(Math.PI*v);
+   if(((x-s*EX)/RX)**2+((y-EY)/RY)**2<.99&&v<.98)z=Math.max(z,ocularZ(s,x,y,faceZ)+.0020);
    const upper=Math.max(0,Math.sin(a)),crease=Math.exp(-(((v-.36)/.14)**2))*upper;z-=.0014*crease;
    const c=new T.Color().fromArray(skinColor(x,y));c.lerp(new T.Color(0xab776b),.11*crease+.12*Math.exp(-v*28));return[x,y,z,...c.toArray()];
   },M.face,h);

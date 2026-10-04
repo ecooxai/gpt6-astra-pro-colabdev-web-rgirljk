@@ -1,7 +1,7 @@
 {
-  "iteration": 40,
-  "score": 78,
-  "note": "Complete curved eyeballs and unclamped irises replace the former flat apertures. The first placement is too far forward and protrudes through the lower eyelids, so this trial is a regression rather than a finished improvement.",
+  "iteration": 41,
+  "score": 82,
+  "note": "The eyeballs now sit behind the facial skin and no longer protrude through the lower lids. Curved irises and restrained reflections read more naturally in portrait and three-quarter views. Facial proportions, ears and the smile still differ from the reference.",
   "revisions": [
     {
       "iteration": 1,
@@ -504,6 +504,13 @@
       "title": "Inset-eye assembly trial - lower-lid intersection",
       "notes": "Complete curved eyeballs and unclamped irises replace the former flat apertures. The first placement is too far forward and protrudes through the lower eyelids, so this trial is a regression rather than a finished improvement.",
       "image": "preview/rev-40-front.png"
+    },
+    {
+      "iteration": 41,
+      "score": 82,
+      "title": "Seated eyes with continuous eyelid coverage",
+      "notes": "The eyeballs now sit behind the facial skin and no longer protrude through the lower lids. Curved irises and restrained reflections read more naturally in portrait and three-quarter views. Facial proportions, ears and the smile still differ from the reference.",
+      "image": "preview/rev-41-front.png"
     }
   ],
   "requestedIterations": 20000,
