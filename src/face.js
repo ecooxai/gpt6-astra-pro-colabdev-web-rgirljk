@@ -4,6 +4,7 @@
 import * as T from 'three';
 import poly2tri from 'poly2tri';
 import {eyeContour,makeEyeGeometry} from './eyes.js';
+import {makeAnatomicalEar} from './ears.js';
 import {FACE_PARAMETERS as F} from './face-parameters.js';
 const NY=F.noseLift,MY=F.mouthLift,MZ=.39*F.mouthLift,JC=F.jawShorten;
 import {surface,ball,box,tube,sample,mix,V} from './geometry.js';
@@ -149,12 +150,7 @@ function makeMouth(h,M){
 function makeEarsAndNose(h,M){
  const mark=new T.MeshStandardMaterial({color:0x8e685b,roughness:.92});mark.name="Subtle skin marks";const nostril=new T.MeshStandardMaterial({color:0x493128,roughness:1,side:T.DoubleSide});nostril.name="Soft nostril shadow";
  for(const s of [-1,1]){
-  const e=new T.Group();e.position.set(s*(s<0?.395:.379),-.067+F.earLift,-.014);e.rotation.y=s*(s<0?.50:.36);e.rotation.z=s*.08;e.scale.set(s<0?1.12:1.02,F.earScale,1);h.add(e);
-  ball('Ear pinna',[0,0,0],[.061,.133,.049],M.skin,e,40);
-  ball('Ear concha shadow',[s*.012,-.002,.041],[.030,.068,.016],M.inner,e,32);
-  tube('Soft helical rim',[[s*.001,-.095,.038],[s*.040,-.052,.047],[s*.045,.040,.042],[s*.021,.103,.032],[-s*.016,.073,.033]],.010,M.skin,e,40,8);
-  tube('Antihelix fold',[[s*.005,-.056,.048],[s*.017,-.006,.053],[s*.001,.04,.051],[s*.015,.067,.045]],.006,M.lid,e,25,6);
-  ball('Tragus',[-s*.02,-.025,.049],[.017,.025,.014],M.skin,e);ball('Earlobe',[s*.001,-.102,.010],[.033,.033,.035],M.skin,e);
+  makeAnatomicalEar(h,M,s,F);
   frontRing('Recessed nasal opening wall',64,10,(u,v)=>{
    const a=u*Math.PI*2,p=nostrilPoint(s,a),x=p[0],y=p[1]+.006*v,z=faceZ(...p)-.035*v;
    return[x,y,z];

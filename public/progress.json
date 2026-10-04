@@ -1,7 +1,7 @@
 {
-  "iteration": 44,
+  "iteration": 45,
   "score": 83,
-  "note": "The tapered lower face and forward chin now transition more smoothly in portrait and profile. Head inclination is closer to the reference, and tooth coverage is improved. Ear anatomy, skin shading and hair flow remain substantial likeness gaps.",
+  "note": "Replaced the overlapping primitive ears with continuous front and rear pinna surfaces and finer cartilage folds. The geometry holds up in front, side and back views, but ear shading and attachment still need refinement. Overall likeness score is unchanged.",
   "revisions": [
     {
       "iteration": 1,
@@ -532,6 +532,13 @@
       "title": "Smoother jaw contour and reference-led head inclination",
       "notes": "The tapered lower face and forward chin now transition more smoothly in portrait and profile. Head inclination is closer to the reference, and tooth coverage is improved. Ear anatomy, skin shading and hair flow remain substantial likeness gaps.",
       "image": "preview/rev-44-front.png"
+    },
+    {
+      "iteration": 45,
+      "score": 83,
+      "title": "Continuous concave ear anatomy",
+      "notes": "Replaced the overlapping primitive ears with continuous front and rear pinna surfaces and finer cartilage folds. The geometry holds up in front, side and back views, but ear shading and attachment still need refinement. Overall likeness score is unchanged.",
+      "image": "preview/rev-45-front.png"
     }
   ],
   "requestedIterations": 20000,
