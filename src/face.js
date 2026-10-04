@@ -84,6 +84,15 @@ function frontRing(...args){
  const n=g.attributes.normal;for(let i=0;i<n.count;i++)n.setXYZ(i,-n.getX(i),-n.getY(i),-n.getZ(i));
  if(/Orbital tissue|Continuous lips|Nasal tissue/.test(args[0])){
   const nu=args[1],nv=args[2],pos=g.attributes.position;
+  // Facial skin detail must share cranial coordinates across surface patches.
+  if(/Orbital tissue|Nasal tissue/.test(args[0])){
+   const uv=g.attributes.uv;
+   for(let k=0;k<pos.count;k++){
+    const x=pos.getX(k),y=pos.getY(k),rx=sample(headRows,y)[0];
+    uv.setXY(k,(Math.asin(clamp(x/rx,-.999,.999))+Math.PI)/(2*Math.PI),(y+.53)/1.11);
+   }
+   uv.needsUpdate=true;
+  }
   for(let j=nv-2;j<=nv;j++)for(let i=0;i<=nu;i++){
    const k=j*(nu+1)+i,x=pos.getX(k),y=pos.getY(k),e=.00005;
    const normal=new T.Vector3(-(faceZ(x+e,y)-faceZ(x-e,y))/(2*e),-(faceZ(x,y+e)-faceZ(x,y-e))/(2*e),1).normalize();

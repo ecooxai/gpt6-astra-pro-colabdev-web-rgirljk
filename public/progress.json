@@ -1,7 +1,7 @@
 {
-  "iteration": 33,
+  "iteration": 34,
   "score": 79,
-  "note": "Reduced eye protrusion and lower tooth exposure. Nasal highlights and synthetic expression remained unresolved.",
+  "note": "Unified skin coordinates across eye and nose patches. The nasal highlights remained; diagnostic trials did not count as a visual improvement.",
   "revisions": [
     {
       "iteration": 1,
@@ -454,6 +454,13 @@
       "score": 79,
       "title": "Softer eye aperture and restrained smile",
       "notes": "Reduced eye protrusion and lower tooth exposure. Nasal highlights and synthetic expression remained unresolved. Original captures were lost in the Colab restore; this is the recovered source change, not an extra iteration.",
+      "image": null
+    },
+    {
+      "iteration": 34,
+      "score": 79,
+      "title": "Continuous facial texture coordinates",
+      "notes": "Unified skin coordinates across eye and nose patches. The nasal highlights remained; diagnostic trials did not count as a visual improvement. Original captures were lost in the Colab restore; this is the recovered source change, not an extra iteration.",
       "image": null
     }
   ],
