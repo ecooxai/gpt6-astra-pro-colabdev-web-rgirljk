@@ -1,0 +1,21 @@
+{
+  "iteration": "31",
+  "stats": {
+    "triangles": 889234,
+    "drawCalls": 37,
+    "modelSource": "procedural",
+    "modelLoadMilliseconds": 13024.200000000186,
+    "geometries": 40,
+    "textures": 11,
+    "mode": "textured",
+    "activeView": "front",
+    "render": {
+      "frame": 40,
+      "calls": 40,
+      "triangles": 892118,
+      "points": 0,
+      "lines": 0
+    }
+  },
+  "errors": []
+}

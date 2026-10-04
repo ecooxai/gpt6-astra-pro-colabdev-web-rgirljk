@@ -40,14 +40,18 @@ const MW=.120;
 function mouthPoint(a,outer=false){const t=Math.cos(a),q=Math.sin(a),w=1-t*t;
  const top=-.214+.004*t*t,bottom=-.277+.067*t*t;
  const cupid=outer?.003*Math.exp(-(((Math.abs(t)-.20)/.15)**2))*Math.sqrt(w):0;
- return[t*(MW+(outer?.0155:0)),q>=0?top+(outer?.019:0)*Math.sqrt(w)+cupid:bottom-(outer?.024:0)*Math.sqrt(w)];}
+ return[t*(MW+(outer?.0155:0)),q>=0?top+(outer?.026:0)*Math.sqrt(w)+cupid:bottom-(outer?.024:0)*Math.sqrt(w)];}
+function nostrilPoint(s,a,outer=false){
+ const t=Math.cos(a),q=Math.sin(a);
+ return[s*.049+(outer?.024:.012)*t,(outer?-.127:-.132)+(outer?.013:.0036)*q-s*t*.0023];
+}
 function inPoly(x,y,p){let inside=false;for(let i=0,j=p.length-1;i<p.length;j=i++){const a=p[i],b=p[j];if((a[1]>y)!=(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])inside=!inside;}return inside;}
 function buildSkin(h,M){
  const minY=-.469,maxY=.579,contour=[];
  for(let i=0;i<=128;i++)contour.push({x:-Math.PI,y:mix(minY,maxY,i/128)});
  contour.push({x:Math.PI,y:maxY});
  for(let i=127;i>=0;i--)contour.push({x:Math.PI,y:mix(minY,maxY,i/128)});
- const holes=[...[-1,1].map(s=>Array.from({length:96},(_,i)=>eyePoint(s,i/96*Math.PI*2,true))),Array.from({length:128},(_,i)=>mouthPoint(i/128*Math.PI*2,true))];
+ const holes=[...[-1,1].map(s=>Array.from({length:96},(_,i)=>eyePoint(s,i/96*Math.PI*2,true))),Array.from({length:128},(_,i)=>mouthPoint(i/128*Math.PI*2,true)),...[-1,1].map(s=>Array.from({length:64},(_,i)=>nostrilPoint(s,i/64*Math.PI*2,true)))];
  const toAngular=([x,y])=>({x:Math.asin(clamp(x/sample(headRows,y)[0],-.999,.999)),y});
  const ctx=new poly2tri.SweepContext(contour);ctx.addHoles(holes.map(p=>p.map(toAngular)));
  for(let j=1;j<129;j++){const y=mix(minY,maxY,j/129);for(let i=1;i<161;i++){
@@ -57,6 +61,10 @@ function buildSkin(h,M){
   if(Math.cos(a)>0&&holes.some(p=>p.some(q=>Math.hypot(q[0]-x,q[1]-y)<.002)))continue;
   ctx.addPoint({x:a,y});
  }}
+ for(const side of [-1,1])for(const scale of [1.16,1.40,1.80])for(let j=0;j<64;j++){
+  const a=j/64*Math.PI*2,p=nostrilPoint(side,a,true),x=side*.049+(p[0]-side*.049)*scale,y=-.127+(p[1]+.127)*scale;
+  if(!holes.some(poly=>inPoly(x,y,poly)))ctx.addPoint(toAngular([x,y]));
+ }
  ctx.triangulate();const points=[],normal=[],colors=[],uv=[],idx=[],map=new Map();
  function vertex(p){if(map.has(p))return map.get(p);const n=points.length/3;map.set(p,n);const a=p.x,y=p.y;
   const q=skull(a,y),da=V(skull(a+.0001,y)).sub(V(skull(a-.0001,y))),dy=V(skull(a,y+.00003)).sub(V(skull(a,y-.00003))),nn=da.cross(dy).normalize();
@@ -70,13 +78,29 @@ function eyeSphereZ(s,x,y){
  return faceZ(x,y)+.003+.017*Math.max(0,1-t*t)-.9*dy*dy;
 }
 
-function frontRing(...args){const m=surface(...args),g=m.geometry,a=g.index.array;for(let i=0;i<a.length;i+=3){const t=a[i+1];a[i+1]=a[i+2];a[i+2]=t;}const n=g.attributes.normal;for(let i=0;i<n.count;i++)n.setXYZ(i,-n.getX(i),-n.getY(i),-n.getZ(i));return m;}
+function frontRing(...args){
+ const m=surface(...args),g=m.geometry,a=g.index.array;
+ for(let i=0;i<a.length;i+=3){const t=a[i+1];a[i+1]=a[i+2];a[i+2]=t;}
+ const n=g.attributes.normal;for(let i=0;i<n.count;i++)n.setXYZ(i,-n.getX(i),-n.getY(i),-n.getZ(i));
+ if(/Orbital tissue|Continuous lips|Nasal tissue/.test(args[0])){
+  const nu=args[1],nv=args[2],pos=g.attributes.position;
+  for(let j=nv-2;j<=nv;j++)for(let i=0;i<=nu;i++){
+   const k=j*(nu+1)+i,x=pos.getX(k),y=pos.getY(k),e=.00005;
+   const normal=new T.Vector3(-(faceZ(x+e,y)-faceZ(x-e,y))/(2*e),-(faceZ(x,y+e)-faceZ(x,y-e))/(2*e),1).normalize();
+   const old=new T.Vector3(n.getX(k),n.getY(k),n.getZ(k));old.lerp(normal,(j-(nv-3))/3).normalize();n.setXYZ(k,old.x,old.y,old.z);
+  }
+ }
+ return m;
+}
+
 function makeEyes(h,M){
  const browMat=makeBrowMaterial();
  const irisMat=new T.MeshPhysicalMaterial({color:0xffffff,vertexColors:true,roughness:.31,clearcoat:.8,clearcoatRoughness:.065,specularIntensity:.5});irisMat.name='Procedural radial brown iris fibres';
  const scleraMat=new T.MeshPhysicalMaterial({color:0xe8dfd8,vertexColors:true,roughness:.25,clearcoat:.55,clearcoatRoughness:.07,specularIntensity:.5});scleraMat.name='Warm sclera and moist ocular surface';
  for(const s of [-1,1]){
-  frontRing('Orbital tissue and anatomical eyelid transition',96,18,(u,v)=>{const a=u*Math.PI*2,inner=eyePoint(s,a),outer=eyePoint(s,a,true),x=mix(inner[0],outer[0],v),y=mix(inner[1],outer[1],v),zi=eyeSphereZ(s,...inner)+.0018,zo=faceZ(...outer),blend=v*v*(3-2*v);let z=faceZ(x,y)+(zi-faceZ(...inner))*Math.pow(1-v,2)+Math.sin(v*Math.PI)*.0005;const c=skinColor(x,y);return[x,y,z,...c];},M.face,h);
+  frontRing('Orbital tissue and anatomical eyelid transition',96,18,(u,v)=>{const a=u*Math.PI*2,inner=eyePoint(s,a),outer=eyePoint(s,a,true),x=mix(inner[0],outer[0],v),y=mix(inner[1],outer[1],v),zi=eyeSphereZ(s,...inner)+.0018,zo=faceZ(...outer),blend=v*v*(3-2*v);let z=faceZ(x,y)+(zi-faceZ(...inner))*Math.pow(1-v,2)+Math.sin(v*Math.PI)*.0005;
+ const upper=Math.max(0,Math.sin(a)),crease=Math.exp(-(((v-.34)/.12)**2))*upper;z-=.0028*crease;
+ const c=new T.Color().fromArray(skinColor(x,y));c.lerp(new T.Color(0xae7569),.22*crease);c.lerp(new T.Color(0xc28c7d),.20*Math.exp(-v*35));return[x,y,z,...c.toArray()];},M.face,h);
   surface('Inset curved sclera',80,24,(u,v)=>{const t=u*2-1,x=s*EX+EW*t,w=Math.sqrt(Math.max(0,1-t*t)),y=EY+s*t*.008+mix(-.018*w,.031*w,v),edge=Math.pow(Math.abs(t),6),c=new T.Color(0xeae2d9).lerp(new T.Color(0xc68e84),edge*.40);c.multiplyScalar(.76+.19*Math.sin(Math.PI*v));return[x,y,eyeSphereZ(s,x,y),...c.toArray()];},scleraMat,h);
   const ix=s*EX-.003,iy=EY+.004,ir=.035;
   frontRing('Iris limbus and intricate radial fibres',128,26,(u,v)=>{const a=u*Math.PI*2,r=ir*v,x=ix+Math.cos(a)*r;let y=iy+Math.sin(a)*r;const tx=(x-s*EX)/EW,w=Math.sqrt(Math.max(0,1-tx*tx));y=clamp(y,EY+s*tx*.008-.018*w+.0007,EY+s*tx*.008+.031*w-.0007);
@@ -102,11 +126,11 @@ function makeEyes(h,M){
  }
 }
 function makeMouth(h,M){
- const lipMat=new T.MeshPhysicalMaterial({color:0xffffff,vertexColors:true,roughness:.55,clearcoat:.055,clearcoatRoughness:.45,specularIntensity:.22});lipMat.name='Integrated rose vermilion with soft skin boundary';
+ const lipMat=new T.MeshPhysicalMaterial({color:0xffffff,vertexColors:true,roughness:.71,clearcoat:0,clearcoatRoughness:.6,specularIntensity:.05});lipMat.name='Integrated rose vermilion with soft skin boundary';
  // Oral cavity is a real recessed volume behind the open skin topology.
  ball('Recessed oral cavity',[0,-.245,.213],[.153,.070,.052],M.mouth,h,48);
  frontRing('Continuous lips and surrounding tissue',128,20,(u,v)=>{const a=u*Math.PI*2,inner=mouthPoint(a),outer=mouthPoint(a,true),x=mix(inner[0],outer[0],v),y=mix(inner[1],outer[1],v),w=Math.sin(a),z0=faceZ(...inner)+.002;
-  const z=faceZ(x,y)-.006*(1-v)**2+Math.sin(v*Math.PI)**2*(w>=0?.012:.014)+.00016*Math.sin(u*740)*Math.sin(v*Math.PI)**2;
+  const z=faceZ(x,y)-.006*(1-v)**2+Math.sin(v*Math.PI)**2*(w>=0?.006:.008)+.00016*Math.sin(u*740)*Math.sin(v*Math.PI)**2;
   let c=new T.Color(w>=0?0x88434f:0xa15365);c.lerp(new T.Color().fromArray(skinColor(x,y)),Math.pow(v,2.5));c.multiplyScalar(1+.018*Math.sin(u*620)*Math.sin(v*Math.PI));return[x,y,z,...c.toArray()];},lipMat,h);
  const toothRows=[[-.121,.015],[-.103,.021],[-.080,.025],[-.050,.030],[-.018,.034],[.018,.034],[.050,.030],[.080,.025],[.103,.021],[.121,.015]];
  for(let i=0;i<toothRows.length;i++){
@@ -134,8 +158,17 @@ function makeEarsAndNose(h,M){
   tube('Soft helical rim',[[s*.001,-.095,.038],[s*.040,-.052,.047],[s*.045,.040,.042],[s*.021,.103,.032],[-s*.016,.073,.033]],.010,M.skin,e,40,8);
   tube('Antihelix fold',[[s*.005,-.056,.048],[s*.017,-.006,.053],[s*.001,.04,.051],[s*.015,.067,.045]],.006,M.lid,e,25,6);
   ball('Tragus',[-s*.02,-.025,.049],[.017,.025,.014],M.skin,e);ball('Earlobe',[s*.001,-.102,.010],[.033,.033,.035],M.skin,e);
-  const nost=ball('Recessed nostril aperture',[s*.049,-.129,faceZ(s*.049,-.129)+.0005],[.011,.003,.0025],nostril,h,28);nost.rotation.z=-s*.17;
-  tube('Subtle alar fold',[[s*.068,-.127,faceZ(s*.068,-.127)+.0003],[s*.078,-.116,faceZ(s*.078,-.116)+.0003],[s*.073,-.101,faceZ(s*.073,-.101)+.0003]],.0006,M.inner,h,18,4);
+  frontRing('Nasal tissue around open nostril',64,16,(u,v)=>{
+   const a=u*Math.PI*2,inner=nostrilPoint(s,a),outer=nostrilPoint(s,a,true),x=mix(inner[0],outer[0],v),y=mix(inner[1],outer[1],v);
+   const z=faceZ(x,y)+(-.0025+.006*Math.sin(a))*(1-v)**2+.0015*Math.sin(v*Math.PI)**2;
+   const c=new T.Color().fromArray(skinColor(x,y));c.lerp(new T.Color(0x875347),.48*(1-v)**2);return[x,y,z,...c.toArray()];
+  },M.face,h);
+  frontRing('Recessed nasal opening wall',64,10,(u,v)=>{
+   const a=u*Math.PI*2,p=nostrilPoint(s,a),x=p[0],y=p[1]+.002*v,z=faceZ(...p)-.0025+.006*Math.sin(a)-.029*v;
+   return[x,y,z];
+  },nostril,h);
+  ball('Nostril internal shadow',[s*.049,-.127,faceZ(s*.049,-.132)-.032],[.014,.011,.009],nostril,h,28);
+
  }
  // A small natural cheek mark observed visually; never a photographic texture.
  for(const [x,y,r] of [[-.243,-.085,.0025],[.178,-.063,.0024],[-.026,.043,.0022]])ball('Subtle facial mark',[x,y,faceZ(x,y)+.0005],[r,r*.86,.0006],mark,h,12);

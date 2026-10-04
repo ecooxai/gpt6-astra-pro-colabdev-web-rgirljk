@@ -1,7 +1,7 @@
 {
-  "iteration": 29,
-  "score": 80,
-  "note": "Original eyebrow fibre density now complements the fine hair geometry. Balanced daylight is retained. The face is still visibly stylized; the thin upper-lip highlight and thick hair clumps remain active issues.",
+  "iteration": 32,
+  "score": 79,
+  "note": "Recessed nasal openings are preserved, but bright rims, synthetic eye contours and heavy hair clumps remain. Recovered front, portrait and profile views were reviewed; the requested target is not reached.",
   "revisions": [
     {
       "iteration": 1,
@@ -427,6 +427,27 @@
       "title": "Natural eyebrow fibres and balanced daylight",
       "notes": "Original eyebrow fibre density now complements the fine hair geometry. Balanced daylight is retained. The face is still visibly stylized; the thin upper-lip highlight and thick hair clumps remain active issues.",
       "image": "preview/rev-29-front.png"
+    },
+    {
+      "iteration": 30,
+      "score": 80,
+      "title": "Continuous tissue normals and upper eyelid folds",
+      "notes": "Matched surface normals across skin boundaries and removed the harsh upper-lip highlight. Eyelid folds are visible. Material isolation confirms the lip geometry is intact; facial likeness remains below target.",
+      "image": "preview/rev-30-front.png"
+    },
+    {
+      "iteration": 31,
+      "score": 78,
+      "title": "True nostril openings \u2014 rim-shading regression",
+      "notes": "Nostrils now have real recessed geometry, but the first trial produces overexposed rims and visible triangular shading around the openings. This is a regression, not a completed improvement.",
+      "image": "preview/rev-31-front.png"
+    },
+    {
+      "iteration": 32,
+      "score": 79,
+      "title": "Recovered nasal-surface correction",
+      "notes": "Recessed nasal openings are preserved, but bright rims, synthetic eye contours and heavy hair clumps remain. Recovered front, portrait and profile views were reviewed; the requested target is not reached.",
+      "image": "preview/rev-32-front.png"
     }
   ],
   "requestedIterations": 20000,
