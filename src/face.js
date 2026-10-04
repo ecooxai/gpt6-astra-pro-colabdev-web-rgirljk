@@ -5,9 +5,10 @@ import * as T from 'three';
 import poly2tri from 'poly2tri';
 import {eyeContour,makeEyeGeometry} from './eyes.js';
 import {FACE_PARAMETERS as F} from './face-parameters.js';
-const NY=F.noseLift,MY=F.mouthLift,MZ=.014,JC=F.jawShorten;
+const NY=F.noseLift,MY=F.mouthLift,MZ=.39*F.mouthLift,JC=F.jawShorten;
 import {surface,ball,box,tube,sample,mix,V} from './geometry.js';
-export const headRows=[[-.448,.008,.03,.035],[-.434,.085,.174,.110],[-.408,.151,.234,.151],[-.350,.233,.281,.194],[-.267,.290,.300,.250],[-.14,.349,.316,.283],[.035,.384,.326,.304],[.18,.374,.326,.31],[.34,.356,.318,.30],[.46,.296,.274,.255],[.54,.173,.17,.164],[.58,.003,.004,.004]].map((r,i)=>[r[0]+(i<5?[1,1,1,.77,.30][i]*JC:0),...r.slice(1)]);
+export const headRows=[[-.448,.008,.03,.035],[-.434,.085,.174,.110],[-.408,.151,.234,.151],[-.350,.233,.281,.194],[-.267,.290,.300,.250],[-.14,.349,.316,.283],[.035,.384,.326,.304],[.18,.374,.326,.31],[.34,.356,.318,.30],[.46,.296,.274,.255],[.54,.173,.17,.164],[.58,.003,.004,.004]].map((r,i)=>{const y=r[0]+(i<5?[1,1,1,.77,.30][i]*JC:0);return[y,r[1],Math.max(.006,r[2]-.75*jawCenter(y)),r[3]];});
+function jawCenter(y){const bottom=-.448+JC,t=Math.max(0,Math.min(1,(-.27-y)/(-.27-bottom)));return F.jawForward*t*t*(3-2*t);}
 const G=(x,y,cx,cy,sx,sy)=>Math.exp(-(((x-cx)/sx)**2+((y-cy)/sy)**2));
 const clamp=T.MathUtils.clamp;
 export function faceZ(x,y){
@@ -27,7 +28,7 @@ export function faceZ(x,y){
  z+=.007*(G(x,y-MY*.5,-.193,-.146,.070,.079)+G(x,y-MY*.5,.193,-.146,.070,.079));
  const foldTop=-.12+NY,foldBottom=-.21+MY;const foldX=.067+clamp((foldTop-y)/(foldTop-foldBottom),0,1)*.082;
  z-=.0035*Math.exp(-(((Math.abs(x)-foldX)/.019)**2))*G(0,y,0,(foldTop+foldBottom)*.5,1,.066);
- return z;
+ return z+jawCenter(y);
 }
 function skinColor(x,y){const c=new T.Color(0xe5b6a2);
  c.lerp(new T.Color(0xc97674),.20*(G(x,y,-.25,-.102,.098,.074)+G(x,y,.25,-.102,.098,.074)));
@@ -36,11 +37,11 @@ function skinColor(x,y){const c=new T.Color(0xe5b6a2);
  c.lerp(new T.Color(0xb28a78),.05*(G(x,y,-.16,-.21,.033,.066)+G(x,y,.16,-.21,.033,.066)));
  const n=Math.sin(x*173+y*51)*Math.sin(y*181-x*87)+.5*Math.sin(x*481+y*253);
  c.multiplyScalar(1+n*.004);return c.toArray();}
-function skull(a,y){const [rx,rz,back]=sample(headRows,y),x=rx*Math.sin(a);return[x,y,Math.cos(a)>=0?faceZ(x,y):back*Math.cos(a)];}
+function skull(a,y){const [rx,rz,back]=sample(headRows,y),x=rx*Math.sin(a);return[x,y,Math.cos(a)>=0?faceZ(x,y):jawCenter(y)+back*Math.cos(a)];}
 const eyePoint=eyeContour;
 const MW=.140;
 function mouthPoint(a,outer=false){const t=Math.cos(a),q=Math.sin(a),w=1-t*t;
- const top=MY-.208-.002*t*t+F.smileArch*(1-t*t),bottom=MY-.265+.055*t*t;
+ const top=MY-.208-.002*t*t+F.smileArch*(1-t*t),bottom=MY-.255+.045*t*t;
  const cupid=outer?.0045*Math.exp(-(((Math.abs(t)-.20)/.15)**2))*Math.sqrt(w):0;
  return[t*(MW+(outer?.0155:0)),q>=0?top+(outer?.026:0)*Math.sqrt(w)+cupid:bottom-(outer?.024:0)*Math.sqrt(w)];}
 function nostrilPoint(s,a,outer=false){
@@ -117,27 +118,38 @@ function makeMouth(h,M){
  frontRing('Continuous lips and surrounding tissue',128,20,(u,v)=>{const a=u*Math.PI*2,inner=mouthPoint(a),outer=mouthPoint(a,true),x=mix(inner[0],outer[0],v),y=mix(inner[1],outer[1],v),w=Math.sin(a),z0=faceZ(...inner)+.002;
   const z=faceZ(x,y)-.002*(1-v)**2+Math.sin(v*Math.PI)**2*(w>=0?.0045:.007)+.00016*Math.sin(u*740)*Math.sin(v*Math.PI)**2;
   let c=new T.Color(w>=0?0xa76569:0xba727a);c.lerp(new T.Color().fromArray(skinColor(x,y)),Math.pow(v,2.5));c.multiplyScalar(1+.018*Math.sin(u*620)*Math.sin(v*Math.PI));return[x,y,z,...c.toArray()];},lipMat,h);
+ const enamel=M.teeth.clone();enamel.name='Convex ivory enamel crowns';enamel.color.set(0xffffff);enamel.vertexColors=true;enamel.roughness=.31;enamel.clearcoat=.28;enamel.clearcoatRoughness=.18;enamel.specularIntensity=.45;
  const toothRows=[[-.121,.015],[-.103,.021],[-.080,.025],[-.050,.030],[-.018,.034],[.018,.034],[.050,.030],[.080,.025],[.103,.021],[.121,.015]];
  for(let i=0;i<toothRows.length;i++){
   const x=toothRows[i][0]*.970,width=toothRows[i][1]*.970,t=x/MW,top=MY-.203+.003*t*t+F.smileArch*(1-t*t);
-  const bottom=MY-.249+.019*t*t+((i===2||i===7)?-.0025:0)+.0007*Math.sin(i*2.9);
-  const tooth=box('Individual anatomically arranged upper tooth '+(i+1),[x,(top+bottom)/2,.294+MZ-.046*t*t],[width*1.025,top-bottom,.015],M.teeth,h,.004);
+  const bottom=MY-.232+.009*t*t+((i===2||i===7)?-.0025:0)+.0007*Math.sin(i*2.9);
+  const tooth=box('Individual anatomically arranged upper tooth '+(i+1),[x,(top+bottom)/2,.294+MZ-.046*t*t],[width*1.025,top-bottom,.015],enamel,h,.0055);
+  const pos=tooth.geometry.attributes.position,norm=tooth.geometry.attributes.normal,colors=[];
+  for(let k=0;k<pos.count;k++){
+   const px=pos.getX(k),py=pos.getY(k),pz=pos.getZ(k),u=px/(width*1.025*.5),v=py/((top-bottom)*.5),fade=T.MathUtils.smoothstep(pz,-.001,.005);
+   const bulge=.0028*Math.max(0,1-u*u)*Math.max(0,1-v*v)*fade;
+   pos.setZ(k,pz+bulge);
+   const dx=-.0028*8*px/(width*1.025)**2*Math.max(0,1-v*v)*fade,dy=-.0028*8*py/(top-bottom)**2*Math.max(0,1-u*u)*fade;
+   const n=new T.Vector3(norm.getX(k)-dx*norm.getZ(k),norm.getY(k)-dy*norm.getZ(k),norm.getZ(k)).normalize();norm.setXYZ(k,n.x,n.y,n.z);
+   const c=new T.Color(0xf2e9dd);c.lerp(new T.Color(0xe5d8c7),Math.pow(Math.max(0,v),3)*.44);c.lerp(new T.Color(0xdad7d0),Math.pow(Math.max(0,-v),6)*.28);colors.push(...c.toArray());
+  }
+  tooth.geometry.setAttribute('color',new T.Float32BufferAttribute(colors,3));
   tooth.rotation.y=-t*.43;tooth.rotation.z=t*.04;
  }
  for(let i=0;i<6;i++){const x=(i-2.5)*.019,t=x/MW;
   box('Subtle lower incisor '+(i+1),[x,MY-.273+.012*t*t,.280+MZ-.025*t*t],[.018,.006,.008],M.teeth,h,.003);
  }
  // A low tongue surface catches a muted bounce, rather than a flat red sticker.
- ball('Tongue inside smile',[0,MY-.282,.245+MZ],[.091,.009,.015],M.lipTop,h,32);
+ ball('Tongue inside smile',[0,MY-.265,.257+MZ],[.091,.009,.015],M.lipTop,h,32);
  for(let s of [-1,1]){
   const pts=[];for(let i=0;i<10;i++){const t=i/9,x=s*(.140+.017*t),y=MY-.210+.012*t;pts.push([x,y,faceZ(x,y)+.0005]);}
-  tube('Fine smile commissure crease',pts,.0008,M.inner,h,14,4);
+  tube('Fine smile commissure crease',pts,.00045,M.inner,h,14,4);
  }
 }
 function makeEarsAndNose(h,M){
  const mark=new T.MeshStandardMaterial({color:0x8e685b,roughness:.92});mark.name="Subtle skin marks";const nostril=new T.MeshStandardMaterial({color:0x493128,roughness:1,side:T.DoubleSide});nostril.name="Soft nostril shadow";
  for(const s of [-1,1]){
-  const e=new T.Group();e.position.set(s*.374,-.067+F.earLift,-.014);e.rotation.y=s*.28;e.rotation.z=s*.08;h.add(e);
+  const e=new T.Group();e.position.set(s*(s<0?.395:.379),-.067+F.earLift,-.014);e.rotation.y=s*(s<0?.50:.36);e.rotation.z=s*.08;e.scale.set(s<0?1.12:1.02,F.earScale,1);h.add(e);
   ball('Ear pinna',[0,0,0],[.061,.133,.049],M.skin,e,40);
   ball('Ear concha shadow',[s*.012,-.002,.041],[.030,.068,.016],M.inner,e,32);
   tube('Soft helical rim',[[s*.001,-.095,.038],[s*.040,-.052,.047],[s*.045,.040,.042],[s*.021,.103,.032],[-s*.016,.073,.033]],.010,M.skin,e,40,8);

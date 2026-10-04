@@ -1,6 +1,8 @@
 /** Original deterministic 3D ribbon groom. No image or external hair asset is sampled. */
 import * as T from 'three';
 import {surface,sample,V} from './geometry.js';
+import {FACE_PARAMETERS as F} from './face-parameters.js';
+const rootLift=.016+.96*F.earLift;
 const TAU=Math.PI*2;
 const rng=initial=>{let seed=initial;return()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};};
 let fibreMaps;const materialCache=new WeakMap();
@@ -28,7 +30,7 @@ const radius=v=>sample([[0,.054],[.15,.113],[.34,.124],[.55,.109],[.74,.077],[.8
 function frame(curve,v,angle){
  const p=curve.getPoint(v),t=curve.getTangent(v).normalize(),b=new T.Vector3(1,0,0).addScaledVector(t,-t.x).normalize(),f=t.clone().cross(b).normalize(),n=f.multiplyScalar(Math.cos(angle)).addScaledVector(b,Math.sin(angle)),a=t.clone().cross(n).normalize();return{p,t,n,a};
 }
-function makeCurve(s,R,length=1.065){const dx=(R()-.5)*.115,dz=(R()-.5)*.100;return new T.CatmullRomCurve3([[s*.357,-.263,-.090],[s*(.466+dx*.3),-.445,.060+dz],[s*(.495+dx),-.690,.270+dz],[s*(.467-dx*.6),-length+.145,.452+dz],[s*(.399+dx*1.7),-length,.412+dz*1.7]].map(V));}
+function makeCurve(s,R,length=1.065){const dx=(R()-.5)*.115,dz=(R()-.5)*.100;return new T.CatmullRomCurve3([[s*.357,-.263+rootLift,-.090],[s*(.466+dx*.3),-.445+rootLift*.7,.060+dz],[s*(.495+dx),-.690+rootLift*.25,.270+dz],[s*(.467-dx*.6),-length+.145,.452+dz],[s*(.399+dx*1.7),-length,.412+dz*1.7]].map(V));}
 function fineStrand(name,pts,r,mat,parent){
  const curve=new T.CatmullRomCurve3(pts.map(V)),segments=24,g=new T.TubeGeometry(curve,segments,r,3,false),p=g.attributes.position;
  for(let j=0;j<=segments;j++){const t=j/segments,c=curve.getPointAt(t),f=Math.pow(1-t,.25);for(let k=0;k<4;k++){const i=j*4+k;p.setXYZ(i,c.x+(p.getX(i)-c.x)*f,c.y+(p.getY(i)-c.y)*f,c.z+(p.getZ(i)-c.z)*f);}}
@@ -37,7 +39,7 @@ function fineStrand(name,pts,r,mat,parent){
 export function makePonytailGroom(parent,M,s){
  const R=rng(s<0?681225:492058),{cards,core}=groomMaterials(M.hair),main=makeCurve(s,()=>.5,1.05+(s>0?.045:0));
  surface('Ponytail soft volume',40,64,(u,v)=>{const f=frame(main,v,-u*TAU),r=radius(v)*.79;return f.p.addScaledVector(f.n,r).toArray();},core,parent);
- const elastic=new T.Mesh(new T.TorusGeometry(.061,.0055,6,40),M.webbing);elastic.name='Partly covered ponytail elastic';elastic.position.set(s*.357,-.285,-.081);elastic.rotation.x=Math.PI/2;parent.add(elastic);
+ const elastic=new T.Mesh(new T.TorusGeometry(.061,.0055,6,40),M.webbing);elastic.name='Partly covered ponytail elastic';elastic.position.set(s*.357,-.285+rootLift,-.081);elastic.rotation.x=Math.PI/2;parent.add(elastic);
  for(let j=0;j<76;j++){
   const angle=j*2.399963229728653,phase=R()*TAU,len=.90+R()*.245+(s>0?.040:0),curve=makeCurve(s,R,len),width=.037+R()*.039,layer=.88+R()*.24,uvShift=R();
   const card=surface('Individually waved hair ribbon '+s+':'+j,6,48,(u,v)=>{const wave=.031*Math.sin(v*11+phase)*Math.sin(Math.PI*v),f=frame(curve,v,angle+.12*Math.sin(v*7+phase)),env=(.50+.65*Math.sin(Math.PI*v))*Math.pow(1-v,.22);f.p.addScaledVector(f.n,radius(v)*layer+wave+.003*(1-(2*u-1)**2)*env);f.p.addScaledVector(f.a,(u-.5)*width*env+.021*Math.sin(v*13+phase)*v);return f.p.toArray();},cards,parent);

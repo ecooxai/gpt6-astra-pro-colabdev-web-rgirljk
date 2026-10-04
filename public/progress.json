@@ -1,7 +1,7 @@
 {
-  "iteration": 42,
+  "iteration": 43,
   "score": 82,
-  "note": "The new proportion controls are reproducible, but visual comparison shows excessive feature lift, a compressed lower face and overly tall teeth. This trial is not scored as a likeness improvement; those proportions are being corrected.",
+  "note": "The teeth are no longer rectangular bars and the nose-to-eye distance is closer to the reference. The profile exposes an abrupt chin transition, and the visible tooth height still needs balancing. The score is unchanged.",
   "revisions": [
     {
       "iteration": 1,
@@ -518,6 +518,13 @@
       "title": "Coordinated facial-proportion controls",
       "notes": "The new proportion controls are reproducible, but visual comparison shows excessive feature lift, a compressed lower face and overly tall teeth. This trial is not scored as a likeness improvement; those proportions are being corrected.",
       "image": "preview/rev-42-front.png"
+    },
+    {
+      "iteration": 43,
+      "score": 82,
+      "title": "Rounded tooth crowns and restored lower-face length",
+      "notes": "The teeth are no longer rectangular bars and the nose-to-eye distance is closer to the reference. The profile exposes an abrupt chin transition, and the visible tooth height still needs balancing. The score is unchanged.",
+      "image": "preview/rev-43-front.png"
     }
   ],
   "requestedIterations": 20000,
