@@ -5,7 +5,7 @@ import * as T from 'three';
 import poly2tri from 'poly2tri';
 import {makeBrowMaterial} from './brows.js';
 import {surface,ball,box,tube,sample,mix,V} from './geometry.js';
-export const headRows=[[-.448,.008,.03,.035],[-.434,.085,.174,.110],[-.408,.161,.238,.155],[-.350,.250,.284,.200],[-.267,.290,.300,.250],[-.14,.349,.316,.283],[.035,.384,.326,.304],[.18,.374,.326,.31],[.34,.356,.318,.30],[.46,.296,.274,.255],[.54,.173,.17,.164],[.58,.003,.004,.004]];
+export const headRows=[[-.448,.008,.03,.035],[-.434,.085,.174,.110],[-.408,.151,.234,.151],[-.350,.233,.281,.194],[-.267,.290,.300,.250],[-.14,.349,.316,.283],[.035,.384,.326,.304],[.18,.374,.326,.31],[.34,.356,.318,.30],[.46,.296,.274,.255],[.54,.173,.17,.164],[.58,.003,.004,.004]];
 const G=(x,y,cx,cy,sx,sy)=>Math.exp(-(((x-cx)/sx)**2+((y-cy)/sy)**2));
 const clamp=T.MathUtils.clamp;
 export function faceZ(x,y){
@@ -53,27 +53,38 @@ function buildSkin(h,M){
  for(let i=0;i<=128;i++)contour.push({x:-Math.PI,y:mix(minY,maxY,i/128)});
  contour.push({x:Math.PI,y:maxY});
  for(let i=127;i>=0;i--)contour.push({x:Math.PI,y:mix(minY,maxY,i/128)});
- const holes=[...[-1,1].map(s=>Array.from({length:96},(_,i)=>eyePoint(s,i/96*Math.PI*2,true))),Array.from({length:128},(_,i)=>mouthPoint(i/128*Math.PI*2,true)),...[-1,1].map(s=>Array.from({length:64},(_,i)=>nostrilPoint(s,i/64*Math.PI*2,true)))];
- const toAngular=([x,y])=>({x:Math.asin(clamp(x/sample(headRows,y)[0],-.999,.999)),y});
- const ctx=new poly2tri.SweepContext(contour);ctx.addHoles(holes.map(p=>p.map(toAngular)));
- for(let j=1;j<129;j++){const y=mix(minY,maxY,j/129);for(let i=1;i<161;i++){
-  const a=-Math.PI+(i+(j%2)*.31)/161*Math.PI*2,[x]=skull(a,y);
-  if(Math.cos(a)>0&&holes.some(p=>inPoly(x,y,p)))continue;
-  // Keep Steiner vertices away from the precise eyelid/mouth boundaries.
-  if(Math.cos(a)>0&&holes.some(p=>p.some(q=>Math.hypot(q[0]-x,q[1]-y)<.002)))continue;
-  ctx.addPoint({x:a,y});
- }}
- for(const side of [-1,1])for(const scale of [1.16,1.40,1.80])for(let j=0;j<64;j++){
-  const a=j/64*Math.PI*2,p=nostrilPoint(side,a,true),x=side*.049+(p[0]-side*.049)*scale,y=-.127+(p[1]+.127)*scale;
-  if(!holes.some(poly=>inPoly(x,y,poly)))ctx.addPoint(toAngular([x,y]));
+ const holes=[...[-1,1].map(s=>Array.from({length:96},(_,i)=>eyePoint(s,i/96*Math.PI*2,true))),Array.from({length:128},(_,i)=>mouthPoint(i/128*Math.PI*2,true)),...[-1,1].map(s=>Array.from({length:32},(_,i)=>nostrilPoint(s,i/32*Math.PI*2)))];
+ const toAngular=([x,y])=>({x:Math.asin(clamp(x/sample(headRows,y)[0],-.999,.999)),y}),angularHoles=holes.map(p=>p.map(toAngular)),holeTests=angularHoles.map(p=>p.map(q=>[q.x,q.y]));
+ const ctx=new poly2tri.SweepContext(contour);ctx.addHoles(angularHoles);
+ const used=new Set([...contour,...angularHoles.flat()].map(p=>p.x.toFixed(8)+':'+p.y.toFixed(8)));
+ function add(a,y){
+  const key=a.toFixed(8)+':'+y.toFixed(8);if(used.has(key))return;
+  const q=skull(a,y),x=q[0];
+  if(Math.cos(a)>0&&(holes.some(p=>inPoly(x,y,p))||holeTests.some(p=>inPoly(a,y,p))||holes.some(p=>p.some(v=>Math.hypot(v[0]-x,v[1]-y)<.00038))))return;
+  used.add(key);ctx.addPoint({x:a,y});
  }
+ const facial=(x,y)=>Math.abs(x)<.302&&y>-.338&&y<.223;
+ const nasal=(x,y)=>Math.abs(x)<.118&&y>-.183&&y<.058;
+ for(let j=1;j<129;j++){
+  const y=mix(minY,maxY,j/129);
+  for(let i=1;i<161;i++){const a=-Math.PI+(i+(j%2)*.31)/161*Math.PI*2,x=skull(a,y)[0];if(Math.cos(a)>0&&facial(x,y))continue;add(a,y);}
+ }
+ // Evenly spaced authored sampling prevents long triangular fans around openings.
+ for(let j=0;j<=93;j++){const y=-.335+j*.006;for(let i=0;i<=100;i++){const x=-.30+(i+(j%2)*.32)*.006;if(nasal(x,y))continue;const p=toAngular([x,y]);add(p.x,p.y);}}
+ for(let j=0;j<=74;j++){const y=-.180+j*.0032;for(let i=0;i<=72;i++){const x=-.115+(i+(j%2)*.32)*.0032,p=toAngular([x,y]);add(p.x,p.y);}}
  ctx.triangulate();const points=[],normal=[],colors=[],uv=[],idx=[],map=new Map();
- function vertex(p){if(map.has(p))return map.get(p);const n=points.length/3;map.set(p,n);const a=p.x,y=p.y;
-  const q=skull(a,y),da=V(skull(a+.0001,y)).sub(V(skull(a-.0001,y))),dy=V(skull(a,y+.00003)).sub(V(skull(a,y-.00003))),nn=da.cross(dy).normalize();
-  points.push(...q);normal.push(...nn.toArray());colors.push(...skinColor(q[0],q[1]));uv.push((a+Math.PI)/(2*Math.PI),(y+.53)/1.11);return n;}
- for(const tri of ctx.getTriangles()){let p=tri.getPoints(),cross=(p[1].x-p[0].x)*(p[2].y-p[0].y)-(p[1].y-p[0].y)*(p[2].x-p[0].x);if(cross<0)p=[p[0],p[2],p[1]];idx.push(...p.map(vertex));}
- const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(points,3));geo.setAttribute('normal',new T.Float32BufferAttribute(normal,3));geo.setAttribute('color',new T.Float32BufferAttribute(colors,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(idx);
- const m=new T.Mesh(geo,M.face);m.name='Continuous anatomical head with open orbital and oral topology';m.castShadow=m.receiveShadow=true;h.add(m);
+ function vertex(p){
+  const key=p.x.toFixed(10)+':'+p.y.toFixed(10);if(map.has(key))return map.get(key);
+  const n=points.length/3;map.set(key,n);const a=p.x,y=p.y,q=skull(a,y),e=.00005;let nn;
+  if(Math.cos(a)>0){const x=q[0];nn=new T.Vector3(-(faceZ(x+e,y)-faceZ(x-e,y))/(2*e),-(faceZ(x,y+e)-faceZ(x,y-e))/(2*e),1).normalize();}
+  else{const da=V(skull(a+.0001,y)).sub(V(skull(a-.0001,y))),dy=V(skull(a,y+e)).sub(V(skull(a,y-e)));nn=da.cross(dy).normalize();}
+  points.push(...q);normal.push(...nn.toArray());colors.push(...skinColor(q[0],q[1]));uv.push((a+Math.PI)/(2*Math.PI),(y+.53)/1.11);return n;
+ }
+ for(const tri of ctx.getTriangles()){
+  let p=tri.getPoints();if((p[1].x-p[0].x)*(p[2].y-p[0].y)-(p[1].y-p[0].y)*(p[2].x-p[0].x)<0)p=[p[0],p[2],p[1]];idx.push(...p.map(vertex));
+ }
+ const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(points,3));g.setAttribute('normal',new T.Float32BufferAttribute(normal,3));g.setAttribute('color',new T.Float32BufferAttribute(colors,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.setIndex(idx);
+ const mesh=new T.Mesh(g,M.face);mesh.name='Continuous anatomical head with refined facial tessellation';mesh.castShadow=mesh.receiveShadow=true;h.add(mesh);
 }
 function eyeSphereZ(s,x,y){
  const t=(x-s*EX)/EW,dy=y-EY;
@@ -169,16 +180,11 @@ function makeEarsAndNose(h,M){
   tube('Soft helical rim',[[s*.001,-.095,.038],[s*.040,-.052,.047],[s*.045,.040,.042],[s*.021,.103,.032],[-s*.016,.073,.033]],.010,M.skin,e,40,8);
   tube('Antihelix fold',[[s*.005,-.056,.048],[s*.017,-.006,.053],[s*.001,.04,.051],[s*.015,.067,.045]],.006,M.lid,e,25,6);
   ball('Tragus',[-s*.02,-.025,.049],[.017,.025,.014],M.skin,e);ball('Earlobe',[s*.001,-.102,.010],[.033,.033,.035],M.skin,e);
-  frontRing('Nasal tissue around open nostril',64,16,(u,v)=>{
-   const a=u*Math.PI*2,inner=nostrilPoint(s,a),outer=nostrilPoint(s,a,true),x=mix(inner[0],outer[0],v),y=mix(inner[1],outer[1],v);
-   const z=faceZ(x,y)+(.014+.002*Math.sin(a))*(1-v)**2+.0003*Math.sin(v*Math.PI)**2;
-   const c=new T.Color().fromArray(skinColor(x,y));c.lerp(new T.Color(0x875347),.64*(1-v)**2);return[x,y,z,...c.toArray()];
-  },M.face,h);
   frontRing('Recessed nasal opening wall',64,10,(u,v)=>{
-   const a=u*Math.PI*2,p=nostrilPoint(s,a),x=p[0],y=p[1]+.002*v,z=faceZ(...p)+.014+.002*Math.sin(a)-.039*v;
+   const a=u*Math.PI*2,p=nostrilPoint(s,a),x=p[0],y=p[1]+.006*v,z=faceZ(...p)-.035*v;
    return[x,y,z];
   },nostril,h);
-  ball('Nostril internal shadow',[s*.049,-.132,faceZ(s*.049,-.132)-.012],[.015,.009,.010],nostril,h,28);
+  ball('Nostril internal shadow',[s*.049,-.128,faceZ(s*.049,-.132)-.026],[.016,.010,.013],nostril,h,28);
 
  }
  // A small natural cheek mark observed visually; never a photographic texture.
