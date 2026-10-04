@@ -1,7 +1,7 @@
 {
-  "iteration": 41,
+  "iteration": 42,
   "score": 82,
-  "note": "The eyeballs now sit behind the facial skin and no longer protrude through the lower lids. Curved irises and restrained reflections read more naturally in portrait and three-quarter views. Facial proportions, ears and the smile still differ from the reference.",
+  "note": "The new proportion controls are reproducible, but visual comparison shows excessive feature lift, a compressed lower face and overly tall teeth. This trial is not scored as a likeness improvement; those proportions are being corrected.",
   "revisions": [
     {
       "iteration": 1,
@@ -511,6 +511,13 @@
       "title": "Seated eyes with continuous eyelid coverage",
       "notes": "The eyeballs now sit behind the facial skin and no longer protrude through the lower lids. Curved irises and restrained reflections read more naturally in portrait and three-quarter views. Facial proportions, ears and the smile still differ from the reference.",
       "image": "preview/rev-41-front.png"
+    },
+    {
+      "iteration": 42,
+      "score": 82,
+      "title": "Coordinated facial-proportion controls",
+      "notes": "The new proportion controls are reproducible, but visual comparison shows excessive feature lift, a compressed lower face and overly tall teeth. This trial is not scored as a likeness improvement; those proportions are being corrected.",
+      "image": "preview/rev-42-front.png"
     }
   ],
   "requestedIterations": 20000,
